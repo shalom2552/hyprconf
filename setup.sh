@@ -13,6 +13,15 @@ info()  { echo -e "${GREEN}[INFO]${NC} $1"; }
 warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
 error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
+on_error() {
+    error "Setup failed at line $LINENO."
+    info "Try running the script again:"
+    echo ""
+    echo "    cd ~/.config/hypr && ./setup.sh"
+    echo ""
+}
+trap on_error ERR
+
 # ---------------------------------------------------
 # 1. Check we're in the right place
 # ---------------------------------------------------
@@ -63,7 +72,7 @@ info "Installing AUR packages (yay)..."
 yay -S --needed --noconfirm --sudoloop \
     quickshell-git \
     walker-bin \
-    elephant-all-bin \
+    elephant-bin \
     awww
 
 # ---------------------------------------------------
