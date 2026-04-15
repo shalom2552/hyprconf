@@ -2,7 +2,7 @@
 
 My personal Hyprland desktop configuration for Arch Linux. This repo lives directly at `~/.config/hypr/`.
 
-> **Shell, terminal, and tool configs** (Zsh, Kitty, tmux, yazi, btop, etc.) are maintained in a [separate repository](https://github.com/shalom2552/dotfiles-stow).
+> **Shell, terminal, and tool configs** (Zsh, Kitty, tmux, yazi, btop, etc.) are maintained in a [separate repository](https://github.com/shalom2552/dotfiles).
 
 ## Tracked Configurations
 
@@ -15,20 +15,37 @@ My personal Hyprland desktop configuration for Arch Linux. This repo lives direc
 * **Wallpaper:** awww + Matugen (dynamic color theming)
 * **Extras:** mimeapps.list (default applications)
 
-## Installation
+## Quick Install
+
+```bash
+[ -d ~/.config/hypr ] && mv ~/.config/hypr ~/.config/hypr.bak
+git clone https://github.com/shalom2552/hyprconf.git ~/.config/hypr
+cd ~/.config/hypr
+chmod +x setup.sh
+./setup.sh
+```
+
+> The script installs all dependencies (pacman + AUR), deploys extra configs, sets up wallpapers, and configures monitors interactively.
+
+## Manual Installation
 
 ### 1. Dependencies
 
 ```bash
-sudo pacman -S --needed \
-  hyprland hyprlock hypridle swaync swayosd loupe \
-  playerctl grim slurp wl-clipboard network-manager-applet \
-  wlogout matugen imagemagick ffmpeg python jq stow
+sudo pacman -S --needed --noconfirm \
+    hyprland hyprlock hypridle \
+    waybar swaync swayosd loupe \
+    playerctl grim slurp wl-clipboard \
+    network-manager-applet \
+    wlogout matugen stow \
+    xdg-desktop-portal-hyprland \
+    polkit-gnome adw-gtk-theme \
+    imagemagick ffmpeg python jq
 ```
 
 ```bash
-# AUR packages (using paru or yay)
-paru -S --needed quickshell walker-bin elephant-all-bin awww adw-gtk3
+# AUR packages (using yay)
+yay -S --needed quickshell-git walker-bin elephant-all-bin awww
 ```
 
 ### 2. Clone
@@ -36,10 +53,7 @@ paru -S --needed quickshell walker-bin elephant-all-bin awww adw-gtk3
 Back up any existing Hyprland config, then clone directly into `~/.config/hypr/`:
 
 ```bash
-# Back up existing config if present
 [ -d ~/.config/hypr ] && mv ~/.config/hypr ~/.config/hypr.bak
-
-# Clone
 git clone https://github.com/shalom2552/hyprconf.git ~/.config/hypr
 ```
 
@@ -49,8 +63,9 @@ SwayOSD and mimeapps.list live outside `~/.config/hypr/`, so they're deployed vi
 
 ```bash
 cd ~/.config/hypr
-./deploy.sh
+stow -t ~ extra
 ```
+> If stow reports conflicts, remove or backup the existing files first.
 
 ### 4. Monitor Layout
 
@@ -68,7 +83,11 @@ Then edit `monitors.conf` to match your actual monitor names (`hyprctl monitors`
 
 ### 5. Wallpapers
 
-Put your wallpapers in `~/Pictures/wallpapers/`. Supported formats: jpg, jpeg, png.
+```bash
+git clone https://github.com/shalom2552/wallpapers-bank.git ~/Pictures/wallpapers
+```
+
+Supported formats: jpg, jpeg, png.
 
 ## Usage
 
@@ -82,4 +101,3 @@ git add keybinds.conf
 git commit -m "update keybinds"
 git push
 ```
-
