@@ -42,7 +42,6 @@ fi
 info "Installing Hyprland packages (pacman)..."
 sudo pacman -S --needed --noconfirm \
     hyprland hyprlock hypridle \
-    waybar \
     swaync swayosd \
     loupe \
     playerctl \

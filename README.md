@@ -34,7 +34,7 @@ chmod +x setup.sh
 ```bash
 sudo pacman -S --needed --noconfirm \
     hyprland hyprlock hypridle \
-    waybar swaync swayosd loupe \
+    swaync swayosd loupe \
     playerctl grim slurp wl-clipboard \
     network-manager-applet \
     wlogout matugen stow \
