@@ -18,14 +18,10 @@ My personal Hyprland desktop configuration for Arch Linux. This repo lives direc
 ## Quick Install
 
 ```bash
-[ -d ~/.config/hypr ] && mv ~/.config/hypr ~/.config/hypr.bak
-git clone https://github.com/shalom2552/hyprconf.git ~/.config/hypr
-cd ~/.config/hypr
-chmod +x setup.sh
-./setup.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/shalom2552/hyprconf/main/install.sh)
 ```
 
-> The script installs all dependencies (pacman + AUR), deploys extra configs, sets up wallpapers, and configures monitors interactively.
+> Installs all dependencies (pacman + AUR), deploys extra configs, sets up wallpapers, and configures monitors interactively.
 
 ## Manual Installation
 
@@ -46,7 +42,10 @@ sudo pacman -S --needed --noconfirm \
 
 ```bash
 # AUR packages (using yay)
-yay -S --needed quickshell-git walker-bin elephant-all-bin awww
+yay -S --needed quickshell-git walker-bin \
+    elephant-bin elephant-clipboard-bin elephant-windows-bin \
+    elephant-desktopapplications-bin elephant-providerlist-bin \
+    awww
 ```
 
 ### 2. Clone
