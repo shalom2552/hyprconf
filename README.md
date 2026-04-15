@@ -40,7 +40,8 @@ sudo pacman -S --needed --noconfirm \
     wlogout matugen stow \
     xdg-desktop-portal-hyprland \
     polkit-gnome adw-gtk-theme \
-    imagemagick ffmpeg python jq
+    imagemagick ffmpeg python jq \
+    dolphin
 ```
 
 ```bash
