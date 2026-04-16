@@ -14,11 +14,10 @@ warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
 error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
 on_error() {
-    error "Setup failed at line $LINENO."
-    info "Try running the script again:"
-    echo ""
-    echo "    cd ~/.config/hypr && ./setup.sh"
-    echo ""
+    echo -e "\n${RED}[ERROR]${NC} Setup failed at line $LINENO.\n"
+    echo -e "  Try run setup manually:\n"
+    echo -e "    cd ~/.config/hypr && ./setup.sh\n"
+    exit 1
 }
 trap on_error ERR
 
@@ -83,44 +82,15 @@ yay -S --needed --noconfirm --sudoloop \
 # 5. Deploy extra configs (swayosd, mimeapps)
 # ---------------------------------------------------
 info "Deploying extra configs (swayosd, mimeapps)..."
-for f in $(find "$HYPR_DIR/extra" -type f | sed "s|$HYPR_DIR/extra/||"); do
+while IFS= read -r -d '' f; do
+    f="${f#"$HYPR_DIR/extra/"}"
     target="$HOME/$f"
     [ -f "$target" ] && [ ! -L "$target" ] && rm "$target"
-done
+done < <(find "$HYPR_DIR/extra" -type f -print0)
 stow -R -t ~ -d "$HYPR_DIR" extra
 
 # ---------------------------------------------------
-# 6. Monitor layout
-# ---------------------------------------------------
-if [ ! -f "$HYPR_DIR/monitors.conf" ]; then
-    echo ""
-    info "No monitors.conf found. Choose your machine type:"
-    echo "  1) Desktop"
-    echo "  2) Laptop"
-    read -rp "  Enter choice [1/2]: " MONITOR_CHOICE
-    case "$MONITOR_CHOICE" in
-        1)
-            cp "$HYPR_DIR/monitors.conf.desktop" "$HYPR_DIR/monitors.conf"
-            info "Copied desktop monitor config."
-            ;;
-        2)
-            cp "$HYPR_DIR/monitors.conf.laptop" "$HYPR_DIR/monitors.conf"
-            info "Copied laptop monitor config."
-            ;;
-        *)
-            warn "Invalid choice. Skipping — create monitors.conf manually."
-            warn "Templates: monitors.conf.desktop, monitors.conf.laptop"
-            ;;
-    esac
-    if [ -f "$HYPR_DIR/monitors.conf" ]; then
-        info "Edit monitors.conf to match your displays (run 'hyprctl monitors' to list them)."
-    fi
-else
-    info "monitors.conf already exists, skipping."
-fi
-
-# ---------------------------------------------------
-# 7. Wallpapers
+# 6. Wallpapers
 # ---------------------------------------------------
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 if [ ! -d "$WALLPAPER_DIR/.git" ]; then
@@ -135,11 +105,37 @@ else
 fi
 
 # ---------------------------------------------------
-# 8. GTK dark mode
+# 7. GTK dark mode
 # ---------------------------------------------------
 info "Setting GTK dark mode..."
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null || true
 gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null || true
+
+# ---------------------------------------------------
+# 8. Monitor layout (after all installs — safe to skip/timeout)
+# ---------------------------------------------------
+if [ ! -f "$HYPR_DIR/monitors.conf" ]; then
+    echo ""
+    info "No monitors.conf found. How many monitors do you have?"
+    echo "  1) 1 monitor  (Laptop)"
+    echo "  2) 2 monitors (Desktop)"
+    MONITOR_CHOICE=""
+    read -t 30 -rp "  Enter choice [1/2, default=1]: " MONITOR_CHOICE || true
+    [ -z "$MONITOR_CHOICE" ] && info "No input — defaulting to 1-monitor (Laptop)."
+    case "$MONITOR_CHOICE" in
+        2)
+            cp "$HYPR_DIR/monitors.conf.desktop" "$HYPR_DIR/monitors.conf"
+            info "Copied 2-monitor (Desktop) config."
+            ;;
+        *)
+            cp "$HYPR_DIR/monitors.conf.laptop" "$HYPR_DIR/monitors.conf"
+            info "Copied 1-monitor (Laptop) config."
+            ;;
+    esac
+    info "Edit monitors.conf to match your displays (run 'hyprctl monitors' to list them)."
+else
+    info "monitors.conf already exists, skipping."
+fi
 
 # ---------------------------------------------------
 # Done
