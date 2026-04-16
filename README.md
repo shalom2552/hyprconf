@@ -1,8 +1,13 @@
 # Hyprconf
 
-My personal Hyprland desktop configuration for Arch Linux. This repo lives directly at `~/.config/hypr/`.
+A personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven and terminal-first.
 
-> **Shell, terminal, and tool configs** (Zsh, Kitty, tmux, yazi, btop, etc.) are maintained in a [separate repository](https://github.com/shalom2552/dotfiles).
+> **Shell and tool configs** are maintained in a [separate repository](https://github.com/shalom2552/dotfiles).
+
+| Main Desktop |
+| :---: |
+| <img width="700" alt="desktop" src="https://github.com/user-attachments/assets/227a7f76-486b-48dc-a8d1-e4ba06ff8a0f" /> |
+
 
 ## Tracked Configurations
 
@@ -12,7 +17,7 @@ My personal Hyprland desktop configuration for Arch Linux. This repo lives direc
 * **Lock Screen:** Hyprlock
 * **Idle Daemon:** Hypridle
 * **OSD:** SwayOSD
-* **Wallpaper:** awww + Matugen (dynamic color theming)
+* **Wallpaper:** awww + Quickshell (QML)
 * **Extras:** mimeapps.list (default applications)
 
 ## Quick Install
@@ -101,3 +106,9 @@ git add keybinds.conf
 git commit -m "update keybinds"
 git push
 ```
+
+## Credits
+
+* **Wallpaper Picker** — inspired by [ilyamiro/nixos-configuration](https://github.com/ilyamiro/nixos-configuration)
+ 
+ 
