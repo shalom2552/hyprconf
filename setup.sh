@@ -62,7 +62,7 @@ sudo pacman -S --needed --noconfirm \
     polkit-gnome \
     adw-gtk-theme \
     imagemagick ffmpeg python jq \
-    dolphin
+    dolphin kitty
 
 # ---------------------------------------------------
 # 4. Install AUR packages

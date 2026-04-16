@@ -37,7 +37,7 @@ sudo pacman -S --needed --noconfirm \
     xdg-desktop-portal-hyprland \
     polkit-gnome adw-gtk-theme \
     imagemagick ffmpeg python jq \
-    dolphin
+    dolphin kitty
 ```
 
 ```bash
