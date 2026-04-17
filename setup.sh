@@ -138,6 +138,12 @@ else
 fi
 
 # ---------------------------------------------------
+# 9. Dotfiles setup
+# ---------------------------------------------------
+info "Running dotfiles setup..."
+bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install.sh)
+
+# ---------------------------------------------------
 # Done
 # ---------------------------------------------------
 echo ""
