@@ -2,7 +2,7 @@
 set -e
 
 HYPR_DIR="$HOME/.config/hypr"
-VERSION="1.4.0"
+VERSION="1.4.2"
 
 # ---------------------------------------------------
 # Helpers
