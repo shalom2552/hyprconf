@@ -102,12 +102,8 @@ done
 # 5. Deploy extra configs (swayosd, mimeapps)
 # ---------------------------------------------------
 info "Deploying extra configs (swayosd, mimeapps)..."
-while IFS= read -r -d '' f; do
-    f="${f#"$HYPR_DIR/extra/"}"
-    target="$HOME/$f"
-    [ -f "$target" ] && [ ! -L "$target" ] && rm "$target"
-done < <(find "$HYPR_DIR/extra" -type f -print0)
-stow -R -t ~ -d "$HYPR_DIR" extra
+stow --adopt -R -t ~ -d "$HYPR_DIR" extra
+git -C "$HYPR_DIR" checkout extra/
 
 # ---------------------------------------------------
 # 6. Wallpapers
