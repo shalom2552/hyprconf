@@ -85,12 +85,6 @@ info "Installing AUR packages (yay)..."
 
 aur_packages=(
     quickshell-git
-    walker-bin
-    elephant-bin
-    elephant-clipboard-bin
-    elephant-windows-bin
-    elephant-desktopapplications-bin
-    elephant-providerlist-bin
     awww
 )
 

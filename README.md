@@ -12,7 +12,6 @@ A personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven and t
 ## Tracked Configurations
 
 * **WM:** Hyprland
-* **App Launcher:** Walker
 * **Notifications:** SwayNC
 * **Lock Screen:** Hyprlock
 * **Idle Daemon:** Hypridle
