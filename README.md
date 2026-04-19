@@ -19,10 +19,10 @@ A personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven and t
 * **Wallpaper:** awww + Quickshell (QML)
 * **Extras:** mimeapps.list (default applications)
 
-## Quick Install
+## Quick Install (Recommended)
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/shalom2552/hyprconf/main/install.sh)
+bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 ```
 
 > Installs all dependencies (pacman + AUR), deploys extra configs, sets up wallpapers, and configures monitors interactively.
