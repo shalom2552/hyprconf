@@ -22,13 +22,15 @@ on_error() {
 trap on_error ERR
 
 # ---------------------------------------------------
-# 1. Check we're in the right place
+# 1. Check git repo exist and update
 # ---------------------------------------------------
 if [ ! -d "$HYPR_DIR/.git" ]; then
     error "Expected hyprconf repo at $HYPR_DIR. Clone it first:\n  git clone https://github.com/shalom2552/hyprconf.git ~/.config/hypr"
 fi
 
 cd "$HYPR_DIR"
+info "Pulling latest hyprconf..."
+git pull --rebase || error "Pulling failed."
 
 # ---------------------------------------------------
 # 2. Install yay if not present
@@ -48,35 +50,59 @@ fi
 # 3. Install packages (pacman)
 # ---------------------------------------------------
 info "Installing Hyprland packages (pacman)..."
-sudo pacman -S --needed --noconfirm \
-    hyprland hyprlock hypridle \
-    swaync swayosd \
-    loupe \
-    playerctl \
-    grim slurp wl-clipboard \
-    network-manager-applet \
-    wlogout \
-    matugen \
-    stow \
-    xdg-desktop-portal-hyprland \
-    polkit-gnome \
-    adw-gtk-theme \
-    imagemagick ffmpeg python jq \
+
+packages=(
+    hyprland hyprlock hypridle
+    swaync swayosd
+    loupe
+    playerctl
+    grim slurp wl-clipboard
+    network-manager-applet
+    wlogout
+    matugen
+    stow
+    xdg-desktop-portal-hyprland
+    polkit-gnome
+    adw-gtk-theme
+    imagemagick ffmpeg python jq
     dolphin kitty
+)
+
+for pkg in "${packages[@]}"; do
+    if ! pacman -Q "$pkg" &>/dev/null; then
+        info "Installing $pkg..."
+        sudo pacman -S --needed --noconfirm "$pkg" \
+            || warn "Failed to install $pkg, skipping..."
+    else
+        info "$pkg already installed, skipping."
+    fi
+done
 
 # ---------------------------------------------------
 # 4. Install AUR packages
 # ---------------------------------------------------
 info "Installing AUR packages (yay)..."
-yay -S --needed --noconfirm --sudoloop \
-    quickshell-git \
-    walker-bin \
-    elephant-bin \
-    elephant-clipboard-bin \
-    elephant-windows-bin \
-    elephant-desktopapplications-bin \
-    elephant-providerlist-bin \
+
+aur_packages=(
+    quickshell-git
+    walker-bin
+    elephant-bin
+    elephant-clipboard-bin
+    elephant-windows-bin
+    elephant-desktopapplications-bin
+    elephant-providerlist-bin
     awww
+)
+
+for pkg in "${aur_packages[@]}"; do
+    if ! yay -Q "$pkg" &>/dev/null; then
+        info "Installing $pkg..."
+        yay -S --needed --noconfirm --sudoloop "$pkg" \
+            || warn "Failed to install $pkg, skipping..."
+    else
+        info "$pkg already installed, skipping."
+    fi
+done
 
 # ---------------------------------------------------
 # 5. Deploy extra configs (swayosd, mimeapps)

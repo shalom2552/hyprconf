@@ -53,22 +53,8 @@ fi
 # ---------------------------------------------------
 # Pre-install checks
 # ---------------------------------------------------
-if [ -d "$HYPR_DIR/.git" ]; then
-    warn "~/.config/hypr already cloned. Stopping."
-    info "To run setup manually:"
-    echo ""
-    echo "    cd ~/.config/hypr && chmod +x setup.sh && ./setup.sh"
-    echo ""
-    exit 1
-fi
-
 if ! command -v pacman &>/dev/null; then
     error "Arch-based system required."
-fi
-
-if [ -d "$HYPR_DIR" ]; then
-    warn "~/.config/hypr exists. Backing up to ~/.config/hypr.bak..."
-    mv "$HYPR_DIR" "$HOME/.config/hypr.bak"
 fi
 
 info "Starting installation..."
@@ -82,10 +68,20 @@ fi
 # ---------------------------------------------------
 # Clone and hand off
 # ---------------------------------------------------
-info "Cloning hyprconf repository..."
-git clone https://github.com/shalom2552/hyprconf.git "$HYPR_DIR"
-cd "$HYPR_DIR"
+if [ -d "$HYPR_DIR/.git" ]; then
+    warn "~/.config/hypr already cloned. Pulling..."
+    cd "$HYPR_DIR"
+    git pull --rebase || error "Pull failed."
+else
+    if [ -d "$HYPR_DIR" ]; then
+        warn "~/.config/hypr exists. Backing up to ~/.config/hypr.bak..."
+        mv "$HYPR_DIR" "$HOME/.config/hypr.bak"
+    fi
+    info "Cloning hyprconf repository..."
+    git clone https://github.com/shalom2552/hyprconf.git "$HYPR_DIR"
+fi
 
+cd "$HYPR_DIR"
 chmod +x setup.sh
 info "Handing off to setup.sh..."
 exec ./setup.sh
