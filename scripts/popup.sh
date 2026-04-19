@@ -3,41 +3,48 @@
 #
 # Generic popup wrapper for Hyprland keybinds.
 # Spawns a floating kitty window running any command (binary or script path).
-# Prevents duplicate popups — focuses existing window if already open.
+# Prevents duplicate popups — kills existing if open, toggles off if same popup.
+#
+# Window class is derived as "fzf-popup-<cmdname>" so each command gets its
+# own windowrule entry for size; no dynamic resizing needed.
 #
 # If the command supports --print (outputs a desktop file path), popup.sh
 # captures it and dispatches via hyprctl for proper Wayland env.
 #
-# Usage: popup.sh <command> [--print]
+# Usage: popup.sh <command> [--print|-p]
 #   popup.sh launch --print
-#   popup.sh ~/.config/hypr/scripts/picker/power.sh
+#   popup.sh power
+#   popup.sh clip
 
 set -uo pipefail
 
 
 # ==== CONSTANTS ====
 
-WINDOW_CLASS="fzf-popup"
 STATE_FILE="/tmp/fzf_popup_cmd"
+
 CMD="${1:-}"
 EXTRA_ARGS="${2:-}"
 
 [[ -z "$CMD" ]] && { echo "Usage: popup.sh <command>"; exit 1; }
 
-# Resolve to full path if not absolute (covers ~/.local/bin which may not be
-# in Hyprland's PATH at keybind-exec time)
+# Resolve to full path if not absolute
 [[ "$CMD" != /* ]] && CMD="$HOME/.local/bin/$CMD"
+
+# Derive window class from command basename: fzf-popup-launch, fzf-popup-power, etc.
+WINDOW_CLASS="fzf-popup-$(basename "$CMD")"
 
 
 # ==== GUARD: toggle or switch ====
 
-if hyprctl clients -j 2>/dev/null | jq -e --arg c "$WINDOW_CLASS" '.[] | select(.class == $c)' > /dev/null 2>&1; then
-    current_cmd=$(cat "$STATE_FILE" 2>/dev/null || echo "")
-    hyprctl dispatch killwindow "class:$WINDOW_CLASS"
+existing=$(hyprctl clients -j 2>/dev/null \
+    | jq -r '.[] | select(.class | startswith("fzf-popup")) | .class' \
+    | head -1)
+
+if [[ -n "$existing" ]]; then
+    hyprctl dispatch killwindow "class:${existing}"
     rm -f "$STATE_FILE"
-    # Same popup → close only (toggle off)
-    [[ "$current_cmd" == "$CMD" ]] && exit 0
-    # Different popup → fall through to spawn new one
+    [[ "$existing" == "$WINDOW_CLASS" ]] && exit 0
     sleep 0.05
 fi
 
@@ -47,7 +54,6 @@ fi
 echo "$CMD" > "$STATE_FILE"
 
 if [[ "$EXTRA_ARGS" == "--print" || "$EXTRA_ARGS" == "-p" ]]; then
-    # Run kitty, capture the printed desktop file path, then dispatch via hyprctl
     RESULT=$(mktemp)
     kitty --class "$WINDOW_CLASS" -e bash -c "$CMD --print > $RESULT"
     rm -f "$STATE_FILE"
@@ -65,5 +71,12 @@ if [[ "$EXTRA_ARGS" == "--print" || "$EXTRA_ARGS" == "-p" ]]; then
         hyprctl dispatch exec -- gtk-launch "$app_id"
     fi
 else
-    exec kitty --class "$WINDOW_CLASS" -e "$CMD"
+    CLIP_OUT="/tmp/fzf_popup_clipboard"
+    rm -f "$CLIP_OUT"
+    FZF_POPUP_OUT="$CLIP_OUT" kitty --class "$WINDOW_CLASS" -e "$CMD"
+    rm -f "$STATE_FILE"
+    if [[ -f "$CLIP_OUT" ]]; then
+        wl-copy < "$CLIP_OUT" &
+        rm -f "$CLIP_OUT"
+    fi
 fi
