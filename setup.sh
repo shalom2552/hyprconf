@@ -65,7 +65,7 @@ packages=(
     polkit-gnome
     adw-gtk-theme
     imagemagick ffmpeg python jq
-    dolphin kitty
+    thunar kitty
 )
 
 for pkg in "${packages[@]}"; do
