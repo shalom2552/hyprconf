@@ -102,7 +102,7 @@ done
 # 5. Deploy extra configs (swayosd, mimeapps)
 # ---------------------------------------------------
 info "Deploying extra configs (swayosd, mimeapps)..."
-stow --adopt -R -t ~ -d "$HYPR_DIR" extra
+stow --adopt -R --no-folding -t ~ -d "$HYPR_DIR" extra
 git -C "$HYPR_DIR" checkout extra/
 
 # ---------------------------------------------------
