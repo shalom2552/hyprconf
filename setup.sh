@@ -154,8 +154,18 @@ else
 fi
 
 # ---------------------------------------------------
-# 9. Dotfiles setup
+# 9. Local config
 # ---------------------------------------------------
+if [ ! -f "$HYPR_DIR/local.conf" ]; then
+    info "Creating local.conf..."
+    echo "# ~/.config/hypr/local.conf" > "$HYPR_DIR/local.conf"
+    echo "# Machine-specific config — not tracked in git." >> "$HYPR_DIR/local.conf"
+fi
+
+# ---------------------------------------------------
+# 10. Dotfiles setup
+# ---------------------------------------------------
+info "Hyprland setup complete!"
 info "Running dotfiles setup..."
 bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install.sh)
 
@@ -163,7 +173,6 @@ bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/ins
 # Done
 # ---------------------------------------------------
 echo ""
-info "Hyprland setup complete!"
 info "Reload Hyprland config: hyprctl reload"
 info "Or log out and back in to start fresh."
 echo ""
