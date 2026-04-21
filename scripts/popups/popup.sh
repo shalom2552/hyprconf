@@ -71,12 +71,6 @@ if [[ "$EXTRA_ARGS" == "--print" || "$EXTRA_ARGS" == "-p" ]]; then
         hyprctl dispatch exec -- gtk-launch "$app_id"
     fi
 else
-    CLIP_OUT="/tmp/fzf_popup_clipboard"
-    rm -f "$CLIP_OUT"
-    FZF_POPUP_OUT="$CLIP_OUT" kitty --class "$WINDOW_CLASS" -e "$CMD"
+    kitty --class "$WINDOW_CLASS" -e "$CMD"
     rm -f "$STATE_FILE"
-    if [[ -f "$CLIP_OUT" ]]; then
-        wl-copy < "$CLIP_OUT" &
-        rm -f "$CLIP_OUT"
-    fi
 fi
