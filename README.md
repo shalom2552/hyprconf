@@ -46,10 +46,7 @@ sudo pacman -S --needed --noconfirm \
 
 ```bash
 # AUR packages (using yay)
-yay -S --needed quickshell-git walker-bin \
-    elephant-bin elephant-clipboard-bin elephant-windows-bin \
-    elephant-desktopapplications-bin elephant-providerlist-bin \
-    awww
+yay -S --needed quickshell-git awww
 ```
 
 ### 2. Clone
