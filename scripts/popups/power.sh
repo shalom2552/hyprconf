@@ -34,17 +34,18 @@ ACTIONS=(
     "󰐥|${C_RED}|${SHUTDOWN}|systemctl poweroff"
 )
 
-CONFIRM_LABELS=("$LOGOUT" "$REBOOT" "$SHUTDOWN" "$LOCK")
+CONFIRM_LABELS=("$LOGOUT" "$REBOOT" "$SHUTDOWN")
 
 # ==== HELPERS ====
 
 confirm() {
-    printf '\n  %b%s%b\n  %b❯%b %s now? %b[Y/n]%b ' \
-        "$C_RED" "──────────────────" "$C_RESET" \
+    printf '\e[?25l\n\n  %b%s%b\n  %b❯%b %s now? %b[Y/n]%b\n ' \
+        "$C_YELLOW" "──────────────────" "$C_RESET" \
         "$C_YELLOW" "$C_RESET" \
         "$1" \
         "$C_BLUE" "$C_RESET" >/dev/tty
-    read -r reply </dev/tty
+    read -r -n 1 reply </dev/tty
+    printf '\e[?25h' >/dev/tty
     [[ "${reply,,}" != "n" ]]
 }
 
