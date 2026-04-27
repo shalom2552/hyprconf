@@ -41,7 +41,7 @@ sudo pacman -S --needed --noconfirm \
     xdg-desktop-portal-hyprland \
     polkit-gnome adw-gtk-theme \
     imagemagick ffmpeg python jq \
-    dolphin kitty
+    thunar kitty
 ```
 
 ```bash
@@ -64,9 +64,10 @@ SwayOSD and mimeapps.list live outside `~/.config/hypr/`, so they're deployed vi
 
 ```bash
 cd ~/.config/hypr
-stow -t ~ extra
+stow --adopt -R --no-folding -t ~ extra
+git checkout extra/
 ```
-> If stow reports conflicts, remove or backup the existing files first.
+> `--adopt` absorbs existing files; `git checkout extra/` restores the repo versions.
 
 ### 4. Monitor Layout
 
