@@ -3,6 +3,8 @@ set -e
 
 HYPR_DIR="$HOME/.config/hypr"
 VERSION="1.4.3"
+SDDM_THEME="catppuccin-mocha-blue"
+SDDM_THEME_PKG="sddm-theme-catppuccin"
 
 # Ensure ~/.local/bin is on PATH (tools like zoxide, fnm, yazi land here)
 export PATH="$HOME/.local/bin:$PATH"
@@ -32,6 +34,7 @@ trap on_error ERR
 # ---------------------------------------------------
 # Welcome
 # ---------------------------------------------------
+if [ "${REEXECED:-0}" != "1" ]; then
 echo -e "${CYAN}"
 echo "  ██╗  ██╗██╗   ██╗██████╗ ██████╗ "
 echo "  ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗"
@@ -50,8 +53,10 @@ echo ""
 echo -e "  ${BOLD}── What's included ──${NC}"
 echo "    • Hyprland, Hyprlock, Hypridle"
 echo "    • SwayNC, SwayOSD"
+echo "    • Bluetooth + audio (pipewire, bluez)"
 echo "    • Wallpapers + Matugen theming"
-echo "    • AUR packages (quickshell, awww, ...)"
+echo "    • Quickshell wallpaper picker (QML)"
+echo "    • fzf popups: launcher, power, clipboard"
 echo "    • Monitor layout selection"
 echo ""
 read -r -p "  Proceed? [n/Y] " confirm
@@ -59,6 +64,7 @@ echo ""
 if [[ "$confirm" =~ ^[Nn]$ ]]; then
     echo "  Aborted."
     exit 0
+fi
 fi
 
 # ---------------------------------------------------
@@ -81,11 +87,20 @@ fi
 # Clone/Pull Repo
 # ---------------------------------------------------
 IS_UPDATE=false
-if [ -d "$HYPR_DIR/.git" ]; then
-    log_info "~/.config/hypr already cloned. Updating..."
+if [ "${REEXECED:-0}" = "1" ]; then
+    # Running as re-exec after self-update; skip pull
     IS_UPDATE=true
+elif [ -d "$HYPR_DIR/.git" ]; then
+    log_info "~/.config/hypr already cloned, checking for updates..."
     cd "$HYPR_DIR"
-    git pull --rebase || log_error "Pull failed."
+    pull_out=$(git pull --rebase 2>&1) || log_error "Pull failed."
+    if echo "$pull_out" | grep -q "Already up to date\|Current branch.*is up to date"; then
+        log_info "Config already up to date."
+    else
+        log_info "Config updated."
+    fi
+    log_info "Re-launching updated script..."
+    exec env REEXECED=1 bash "$HYPR_DIR/install.sh"
 else
     if [ -d "$HYPR_DIR" ]; then
         log_warn "~/.config/hypr exists. Backing up to ~/.config/hypr.bak..."
@@ -165,23 +180,29 @@ for pkg in "${aur_packages[@]}"; do
         log_info "$pkg already installed, skipping."
     fi
 done
-#
 # ---------------------------------------------------
 # 4. SDDM Theme Setup
 # ---------------------------------------------------
 log_info "Configuring SDDM..."
 
-SDDM_THEME="catppuccin-mocha-blue"
+SDDM_CONF="/etc/sddm.conf.d/theme.conf"
 
-if ! pacman -Q sddm-theme-catppuccin &>/dev/null; then
-    log_info "Installing SDDM Catppuccin theme..."
-    yay -S --needed --noconfirm --sudoloop sddm-theme-catppuccin \
+if ! pacman -Q "$SDDM_THEME_PKG" &>/dev/null; then
+    log_info "Installing $SDDM_THEME_PKG..."
+    yay -S --needed --noconfirm --sudoloop "$SDDM_THEME_PKG" \
         || log_warn "Failed to install SDDM theme, skipping..."
+else
+    log_info "$SDDM_THEME_PKG already installed, skipping."
 fi
 
-# Set theme + remember last user
-sudo mkdir -p /etc/sddm.conf.d
-sudo tee /etc/sddm.conf.d/theme.conf > /dev/null <<EOF
+SDDM_CONF_OK=false
+SDDM_ENABLED=false
+grep -q "Current=$SDDM_THEME" "$SDDM_CONF" 2>/dev/null && SDDM_CONF_OK=true
+[ -L /etc/systemd/system/display-manager.service ] && SDDM_ENABLED=true
+
+if [ "$SDDM_CONF_OK" = false ] || [ "$SDDM_ENABLED" = false ]; then
+    sudo mkdir -p /etc/sddm.conf.d
+    sudo tee "$SDDM_CONF" > /dev/null <<EOF
 [Theme]
 Current=$SDDM_THEME
 
@@ -189,16 +210,21 @@ Current=$SDDM_THEME
 RememberLastUser=true
 RememberLastSession=true
 EOF
-
-sudo systemctl enable sddm 2>/dev/null || true
-log_info "SDDM configured with theme: $SDDM_THEME"
+    [ "$SDDM_ENABLED" = false ] && sudo systemctl enable sddm
+    log_info "SDDM configured with theme: $SDDM_THEME"
+else
+    log_info "SDDM already configured, skipping."
+fi
 
 # ---------------------------------------------------
 # 5. Deploy extra configs (swayosd, mimeapps)
 # ---------------------------------------------------
 log_info "Deploying extra configs (swayosd, mimeapps)..."
 stow --adopt -R --no-folding -t ~ -d "$HYPR_DIR" extra
-git -C "$HYPR_DIR" checkout extra/
+checkout_out=$(git -C "$HYPR_DIR" checkout extra/ 2>&1)
+if [ -n "$checkout_out" ] && ! echo "$checkout_out" | grep -q "Updated 0"; then
+    log_info "Extra configs updated."
+fi
 
 # ---------------------------------------------------
 # 6. Wallpapers
@@ -209,9 +235,14 @@ if [ ! -d "$WALLPAPER_DIR/.git" ]; then
     mkdir -p "$HOME/Pictures"
     git clone https://github.com/shalom2552/wallpapers-bank.git "$WALLPAPER_DIR"
 else
-    log_info "Wallpapers already cloned, pulling latest..."
+    log_info "Wallpapers already cloned, checking for updates..."
     cd "$WALLPAPER_DIR"
-    git pull
+    pull_out=$(git pull 2>&1)
+    if echo "$pull_out" | grep -q "Already up to date"; then
+        log_info "Wallpapers already up to date."
+    else
+        log_info "Wallpapers updated."
+    fi
     cd "$HYPR_DIR"
 fi
 
@@ -262,7 +293,7 @@ fi
 # ---------------------------------------------------
 log_info "Running dotfiles setup..."
 if [ -d "$HOME/dotfiles/.git" ]; then
-    bash "$HOME/dotfiles/install.sh"
+    SKIP_WELCOME=1 bash "$HOME/dotfiles/install.sh"
 else
     bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install.sh)
 fi
@@ -271,9 +302,9 @@ fi
 # Done
 # ---------------------------------------------------
 if [ "$IS_UPDATE" = true ]; then
-    log_info "Hyprland update complete!"
+    log_info "Hyprconf update complete!"
 else
-    log_info "Hyprland setup complete!"
+    log_info "Hyprconf setup complete!"
     log_info "Reload Hyprland config: hyprctl reload"
 fi
 echo ""
