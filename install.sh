@@ -139,7 +139,6 @@ packages=(
     playerctl
     grim slurp wl-clipboard
     network-manager-applet
-    wlogout
     matugen
     stow
     xdg-desktop-portal-hyprland
@@ -168,6 +167,7 @@ log_info "Installing AUR packages (yay)..."
 aur_packages=(
     quickshell-git
     awww
+    wlogout
     zen-browser-bin
 )
 
