@@ -147,6 +147,9 @@ packages=(
     cliphist fzf
     imagemagick ffmpeg python jq
     thunar kitty
+    pipewire pipewire-pulse pipewire-alsa wireplumber
+    pulsemixer
+    bluez bluez-utils
 )
 
 for pkg in "${packages[@]}"; do
@@ -167,7 +170,7 @@ log_info "Installing AUR packages (yay)..."
 aur_packages=(
     quickshell-git
     awww
-    wlogout
+    bluetuith
     zen-browser-bin
 )
 
@@ -180,6 +183,17 @@ for pkg in "${aur_packages[@]}"; do
         log_info "$pkg already installed, skipping."
     fi
 done
+
+# ---------------------------------------------------
+# 3b. Enable services
+# ---------------------------------------------------
+if ! systemctl is-enabled bluetooth.service &>/dev/null; then
+    log_info "Enabling bluetooth..."
+    sudo systemctl enable --now bluetooth.service || log_warn "Failed to enable bluetooth."
+else
+    log_info "bluetooth already enabled, skipping."
+fi
+
 # ---------------------------------------------------
 # 4. SDDM Theme Setup
 # ---------------------------------------------------
