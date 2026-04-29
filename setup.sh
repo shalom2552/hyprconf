@@ -3,6 +3,9 @@ set -e
 
 HYPR_DIR="$HOME/.config/hypr"
 
+# Ensure ~/.local/bin is on PATH (tools like zoxide, fnm, yazi land here)
+export PATH="$HOME/.local/bin:$PATH"
+
 # Colors
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -64,6 +67,7 @@ packages=(
     xdg-desktop-portal-hyprland
     polkit-gnome
     adw-gtk-theme
+    cliphist fzf
     imagemagick ffmpeg python jq
     thunar kitty
 )
@@ -86,6 +90,7 @@ info "Installing AUR packages (yay)..."
 aur_packages=(
     quickshell-git
     awww
+    zen-browser-bin
 )
 
 for pkg in "${aur_packages[@]}"; do
@@ -158,8 +163,8 @@ fi
 # ---------------------------------------------------
 if [ ! -f "$HYPR_DIR/local.conf" ]; then
     info "Creating local.conf..."
-    echo "# ~/.config/hypr/local.conf" > "$HYPR_DIR/local.conf"
-    echo "# Machine-specific config — not tracked in git." >> "$HYPR_DIR/local.conf"
+    printf "# ~/.config/hypr/local.conf\n# Machine-specific config — not tracked in git.\n" \
+        > "$HYPR_DIR/local.conf"
 fi
 
 # ---------------------------------------------------
@@ -167,7 +172,11 @@ fi
 # ---------------------------------------------------
 info "Hyprland setup complete!"
 info "Running dotfiles setup..."
-bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install.sh)
+if [ -d "$HOME/dotfiles/.git" ]; then
+    bash "$HOME/dotfiles/setup.sh"
+else
+    bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install.sh)
+fi
 
 # ---------------------------------------------------
 # Done
