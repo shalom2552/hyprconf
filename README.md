@@ -1,111 +1,54 @@
+
 # Hyprconf
 
-A personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven and terminal-first.
+Personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven, terminal-first. No status bar — everything is a keybind or a terminal.
 
-> **Shell and tool configs** are maintained in a [separate repository](https://github.com/shalom2552/dotfiles).
+> Shell and tool configs live in a [separate repository](https://github.com/shalom2552/dotfiles).
 
-| Main Desktop |
-| :---: |
-| <img width="700" alt="desktop" src="https://github.com/user-attachments/assets/227a7f76-486b-48dc-a8d1-e4ba06ff8a0f" /> |
-
-
-## Tracked Configurations
-
-* **WM:** Hyprland
-* **Notifications:** SwayNC
-* **Lock Screen:** Hyprlock
-* **Idle Daemon:** Hypridle
-* **OSD:** SwayOSD
-* **Wallpaper:** awww + Quickshell (QML)
-* **Extras:** mimeapps.list (default applications)
-
-## Quick Install (Recommended)
+## Install
 
 ```bash
 bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 ```
 
-> Installs all dependencies (pacman + AUR), deploys extra configs, sets up wallpapers, and configures monitors interactively.
+> Installs all dependencies (pacman + AUR), deploys configs, sets up wallpapers, configures monitors.
 
-## Manual Installation
+---
 
-### 1. Dependencies
+| Screenshots |
+| :---: |
+| <img  alt="Desktop1" src="https://github.com/user-attachments/assets/227a7f76-486b-48dc-a8d1-e4ba06ff8a0f" /> |
+| <img alt="Desktop2" src="https://github.com/user-attachments/assets/a8d75f00-3bc3-468d-9055-b032c86b207b" /> |
 
-```bash
-sudo pacman -S --needed --noconfirm \
-    hyprland hyprlock hypridle \
-    swaync swayosd loupe \
-    playerctl grim slurp wl-clipboard \
-    network-manager-applet \
-    wlogout matugen stow \
-    xdg-desktop-portal-hyprland \
-    polkit-gnome adw-gtk-theme \
-    imagemagick ffmpeg python jq \
-    thunar kitty
-```
 
-```bash
-# AUR packages (using yay)
-yay -S --needed quickshell-git awww
-```
+## What's Included
 
-### 2. Clone
+* **WM:** Hyprland
+* **Lock Screen:** Hyprlock
+* **Idle Daemon:** Hypridle
+* **Notifications:** SwayNC
+* **OSD:** SwayOSD
+* **Wallpaper + Picker:** awww + Quickshell (QML)
+* **Popups:** fzf-based App Launcher, Power Menu, Clipboard, Window Switcher
+* **Screenshots:** grim + slurp
 
-Back up any existing Hyprland config, then clone directly into `~/.config/hypr/`:
+## Keybinds
 
-```bash
-[ -d ~/.config/hypr ] && mv ~/.config/hypr ~/.config/hypr.bak
-git clone https://github.com/shalom2552/hyprconf.git ~/.config/hypr
-```
-
-### 3. Deploy Extra Configs
-
-SwayOSD and mimeapps.list live outside `~/.config/hypr/`, so they're deployed via Stow:
-
-```bash
-cd ~/.config/hypr
-stow --adopt -R --no-folding -t ~ extra
-git checkout extra/
-```
-> `--adopt` absorbs existing files; `git checkout extra/` restores the repo versions.
-
-### 4. Monitor Layout
-
-Copy the appropriate monitor template for your machine:
-
-```bash
-# Desktop
-cp ~/.config/hypr/monitors.conf.desktop ~/.config/hypr/monitors.conf
-
-# Laptop
-cp ~/.config/hypr/monitors.conf.laptop ~/.config/hypr/monitors.conf
-```
-
-Then edit `monitors.conf` to match your actual monitor names (`hyprctl monitors` to list them).
-
-### 5. Wallpapers
-
-```bash
-git clone https://github.com/shalom2552/wallpapers-bank.git ~/Pictures/wallpapers
-```
-
-Supported formats: jpg, jpeg, png.
-
-## Usage
-
-Since the repo is the config directory itself, just edit and commit:
-
-```bash
-cd ~/.config/hypr
-nvim keybinds.conf
-
-git add keybinds.conf
-git commit -m "update keybinds"
-git push
-```
+* `Super + D` — App Launcher
+* `Super + X` — Power Menu
+* `Super + C` — Clipboard
+* `Super + W` — Wallpaper Picker
+* `Super + A` — Notification Center
+* `Alt + Tab` — Window Switcher
+* `Super + G` — Toggle Float
+* `Super + S` — Toggle Split
+* `Super + M` — Lock Screen
+* `Super + Shift + J/K` — Move Window to Workspace
+* `Super + Shift + H/L` — Move Window to Monitor
+* `Super + Space` — Switch Keyboard Layout (US / IL)
+* `Print` — Screenshot Region
+* `Shift + Print` — Screenshot Full
 
 ## Credits
 
-* **Wallpaper Picker** — inspired by [ilyamiro/nixos-configuration](https://github.com/ilyamiro/nixos-configuration)
- 
- 
+- Wallpaper Picker — inspired by [ilyamiro/nixos-configuration](https://github.com/ilyamiro/nixos-configuration)
