@@ -165,16 +165,43 @@ for pkg in "${aur_packages[@]}"; do
         log_info "$pkg already installed, skipping."
     fi
 done
+#
+# ---------------------------------------------------
+# 4. SDDM Theme Setup
+# ---------------------------------------------------
+log_info "Configuring SDDM..."
+
+SDDM_THEME="catppuccin-mocha-blue"
+
+if ! pacman -Q sddm-theme-catppuccin &>/dev/null; then
+    log_info "Installing SDDM Catppuccin theme..."
+    yay -S --needed --noconfirm --sudoloop sddm-theme-catppuccin \
+        || log_warn "Failed to install SDDM theme, skipping..."
+fi
+
+# Set theme + remember last user
+sudo mkdir -p /etc/sddm.conf.d
+sudo tee /etc/sddm.conf.d/theme.conf > /dev/null <<EOF
+[Theme]
+Current=$SDDM_THEME
+
+[Users]
+RememberLastUser=true
+RememberLastSession=true
+EOF
+
+sudo systemctl enable sddm 2>/dev/null || true
+log_info "SDDM configured with theme: $SDDM_THEME"
 
 # ---------------------------------------------------
-# 4. Deploy extra configs (swayosd, mimeapps)
+# 5. Deploy extra configs (swayosd, mimeapps)
 # ---------------------------------------------------
 log_info "Deploying extra configs (swayosd, mimeapps)..."
 stow --adopt -R --no-folding -t ~ -d "$HYPR_DIR" extra
 git -C "$HYPR_DIR" checkout extra/
 
 # ---------------------------------------------------
-# 5. Wallpapers
+# 6. Wallpapers
 # ---------------------------------------------------
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 if [ ! -d "$WALLPAPER_DIR/.git" ]; then
@@ -189,14 +216,14 @@ else
 fi
 
 # ---------------------------------------------------
-# 6. GTK dark mode
+# 7. GTK dark mode
 # ---------------------------------------------------
 log_info "Setting GTK dark mode..."
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null || true
 gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null || true
 
 # ---------------------------------------------------
-# 7. Monitor layout (after all installs — safe to skip/timeout)
+# 8. Monitor layout (after all installs — safe to skip/timeout)
 # ---------------------------------------------------
 if [ ! -f "$HYPR_DIR/monitors.conf" ]; then
     echo ""
@@ -222,7 +249,7 @@ else
 fi
 
 # ---------------------------------------------------
-# 8. Local config
+# 9. Local config
 # ---------------------------------------------------
 if [ ! -f "$HYPR_DIR/local.conf" ]; then
     log_info "Creating local.conf..."
@@ -231,7 +258,7 @@ if [ ! -f "$HYPR_DIR/local.conf" ]; then
 fi
 
 # ---------------------------------------------------
-# 9. Dotfiles setup
+# 10. Dotfiles setup
 # ---------------------------------------------------
 log_info "Running dotfiles setup..."
 if [ -d "$HOME/dotfiles/.git" ]; then
