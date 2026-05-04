@@ -209,10 +209,18 @@ else
     log_info "$SDDM_THEME_PKG already installed, skipping."
 fi
 
+CURRENT_DM=$(basename "$(readlink /etc/systemd/system/display-manager.service 2>/dev/null)" .service 2>/dev/null)
+if [ -n "$CURRENT_DM" ] && [ "$CURRENT_DM" != "sddm" ]; then
+    log_info "Disabling existing display manager: $CURRENT_DM"
+    sudo systemctl disable "$CURRENT_DM" || log_warn "Failed to disable $CURRENT_DM."
+fi
+
 SDDM_CONF_OK=false
 SDDM_ENABLED=false
 grep -q "Current=$SDDM_THEME" "$SDDM_CONF" 2>/dev/null && SDDM_CONF_OK=true
-[ -L /etc/systemd/system/display-manager.service ] && SDDM_ENABLED=true
+[ -L /etc/systemd/system/display-manager.service ] && \
+    [ "$(basename "$(readlink /etc/systemd/system/display-manager.service)" .service)" = "sddm" ] && \
+    SDDM_ENABLED=true
 
 if [ "$SDDM_CONF_OK" = false ] || [ "$SDDM_ENABLED" = false ]; then
     sudo mkdir -p /etc/sddm.conf.d
