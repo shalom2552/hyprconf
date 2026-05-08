@@ -28,7 +28,7 @@ SHUTDOWN="Shutdown"
 # Symbols: 󰌾 Lock, 󰗼 Logout, 󰖔 Suspend, 󰜉 Reboot, 󰐥 Shutdown
 ACTIONS=(
     "󰌾|${C_BLUE}|${LOCK}|loginctl lock-session || hyprlock"
-    "󰗼|${C_YELLOW}|${LOGOUT}|loginctl terminate-user \"$USER\""
+    "󰗼|${C_YELLOW}|${LOGOUT}|uwsm stop"
     "󰖔|${C_PURPLE}|${SUSPEND}|systemctl suspend"
     "󰜉|${C_ORANGE}|${REBOOT}|systemctl reboot"
     "󰐥|${C_RED}|${SHUTDOWN}|systemctl poweroff"
