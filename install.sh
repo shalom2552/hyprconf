@@ -168,6 +168,7 @@ done
 log_info "Installing AUR packages (yay)..."
 
 aur_packages=(
+    xdg-terminal-exec
     quickshell-git
     awww
     bluetuith
