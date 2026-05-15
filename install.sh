@@ -150,6 +150,7 @@ packages=(
     pipewire pipewire-pulse pipewire-alsa wireplumber
     pulsemixer
     bluez bluez-utils
+    mpv
 )
 
 for pkg in "${packages[@]}"; do
