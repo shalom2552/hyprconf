@@ -1,4 +1,4 @@
--- ~/.config/hypr/appearance.conf
+-- ~/.config/hypr/appearance.lua
 --===========================
 -- APPEARANCE
 --===========================
