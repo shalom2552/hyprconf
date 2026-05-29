@@ -1,23 +1,20 @@
-# ~/.config/hypr/layouts.conf
+-- ~/.config/hypr/layouts.conf
+--===========================
+-- LAYOUTS
+--===========================
 
-##############################
-# LAYOUTS
-##############################
+hl.config({
+    dwindle = {
+        preserve_split = true,
+    },
 
-dwindle {
-    preserve_split = true
-}
+    master = {
+        new_status = "master",
+    },
 
-master {
-    new_status = master
-}
+    misc = {
+        force_default_wallpaper = -1,
+        disable_hyprland_logo = false,
+    },
+})
 
-
-##############################
-# MISC
-##############################
-
-misc {
-    force_default_wallpaper = -1
-    disable_hyprland_logo = false
-}
