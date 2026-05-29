@@ -1,128 +1,123 @@
-# ~/.config/hypr/window-rules.conf
+-- ~/.config/hypr/window-rules.lua
+--===========================
+-- WINDOW RULES
+--===========================
 
-##############################
-# GENERAL WINDOW RULES
-##############################
+-- Suppress maximize requests from all apps
+hl.window_rule({
+    name  = "suppress-maximize-events",
+    match = { class = ".*" },
+    suppress_event = "maximize",
+})
 
-# Suppress maximize requests from all apps
-windowrule {
-    name = suppress-maximize-events
-    match:class = .*
-    suppress_event = maximize
-}
+-- Fix XWayland drag issues
+hl.window_rule({
+    name  = "fix-xwayland-drags",
+    match = {
+        class      = "^$",
+        title      = "^$",
+        xwayland   = true,
+        float      = true,
+        fullscreen = false,
+        pin        = false,
+    },
+    no_focus = true,
+})
 
-# Fix XWayland drag issues
-windowrule {
-    name = fix-xwayland-drags
-    match:class = ^$
-    match:title = ^$
-    match:xwayland = true
-    match:float = true
-    match:fullscreen = false
-    match:pin = false
-    no_focus = true
-}
+--===========================
+-- FZF POPUP LAUNCHERS
+--===========================
 
-##############################
-# FZF POPUP LAUNCHERS
-##############################
+-- Base — common props for all fzf-popup-* subclasses
+hl.window_rule({
+    name  = "fzf-popup-base",
+    match = { class = "^(fzf-popup-.*)$" },
+    float        = true,
+    center       = true,
+    opacity      = "1.0 1.0",
+    stay_focused = true,
+    dim_around   = true,
+    pin          = true,
+})
 
-# Base — common props for all fzf-popup-* subclasses
-windowrule {
-    name = fzf-popup-base
-    match:class = ^(fzf-popup-.*)$
+-- App launcher
+hl.window_rule({
+    name  = "fzf-popup-launch",
+    match = { class = "^(fzf-popup-launch)$" },
+    size = "500 500",
+})
 
-    float = yes
-    center = yes
-    opacity = 1.0 1.0
-    stay_focused = on
-    dim_around = on
-    pin = yes
-}
+-- Power menu
+hl.window_rule({
+    name  = "fzf-popup-power",
+    match = { class = "^(fzf-popup-power)$" },
+    size = "200 220",
+})
 
-# App launcher (launch)
-windowrule {
-    name = fzf-popup-launch
-    match:class = ^(fzf-popup-launch)$
-    size = 500 500
-}
+-- Clipboard
+hl.window_rule({
+    name  = "fzf-popup-clip",
+    match = { class = "^(fzf-popup-clip)$" },
+    size = "800 500",
+})
 
-# Power menu (power)
-windowrule {
-    name = fzf-popup-power
-    match:class = ^(fzf-popup-power)$
-    size = 200 220
-}
+-- Window switcher
+hl.window_rule({
+    name  = "fzf-popup-alttab",
+    match = { class = "^(fzf-popup-alttab)$" },
+    size = "300 200",
+})
 
-# Clipboard (clip.sh)
-windowrule {
-    name = fzf-popup-clip
-    match:class = ^(fzf-popup-clip)$
-    size = 800 500
-}
+--===========================
+-- TRANSPARENCY
+--===========================
 
-# Window switcher (alttab.sh)
-windowrule {
-    name = fzf-popup-alttab
-    match:class = ^(fzf-popup-alttab)$
-    size = 300 200
-}
+-- Default transparency for all windows
+hl.window_rule({
+    name    = "default-transparency",
+    match   = { class = ".*" },
+    opacity = "0.8 0.8",
+})
 
-##############################
-# TRANSPARENCY RULES
-##############################
+-- Opaque exceptions — media players, image viewers
+hl.window_rule({
+    name    = "opaque-media",
+    match   = { class = "^(mpv|vlc|loupe|eog)$" },
+    opacity = "1.0 1.0",
+})
 
-# Default transparency for all windows (active, inactive)
-windowrule {
-    name = default-transparency
-        match:class = .*
-        opacity = 0.8 0.8
-}
+-- Opaque when fullscreen
+hl.window_rule({
+    name    = "opaque-fullscreen",
+    match   = { fullscreen = true },
+    opacity = "1.0 1.0",
+})
 
-# Opaque exceptions — terminals, media players, image viewers
-windowrule {
-    name = opaque-media
-        match:class = ^(mpv|vlc|loupe|eog)$
-        opacity = 1.0 1.0
-}
+--===========================
+-- APP RULES
+--===========================
 
-# Opaque when fullscreen (games, videos, presentations)
-windowrule {
-    name = opaque-fullscreen
-        match:fullscreen = true
-        opacity = 1.0 1.0
-}
+-- hyprland-run floating terminal
+hl.window_rule({
+    name  = "move-hyprland-run",
+    match = { class = "hyprland-run" },
+    move  = "20 monitor_h-120",
+    float = true,
+})
 
-##############################
-# APPS WINDOW RULES
-##############################
+-- Quickshell popup manager — parked off-screen
+hl.window_rule({
+    name  = "qs-master",
+    match = { title = "^(qs-master)$" },
+    float = true,
+    move  = "-5000 -5000",
+})
 
-# hyprland-run floating terminal
-windowrule {
-    name = move-hyprland-run
-    match:class = hyprland-run
-
-    move = 20 monitor_h-120
-    float = yes
-}
-
-# Quickshell popup manager — parked off-screen at -5000,-5000
-windowrule {
-    name = qs-master
-    match:title = ^(qs-master)$
-
-    float = yes
-    move = -5000 -5000
-}
-
-# Zen Browser Picture-in-Picture — pin across all workspaces
-windowrule {
-    name = pip
-    match:class = ^(zen)$
-    match:title = ^(Picture-in-Picture)$
-
-    float = yes
-    pin = yes
-    size = 640 360
-}
-
+-- Zen Browser Picture-in-Picture
+hl.window_rule({
+    name  = "pip",
+    match = { class = "^(zen)$", title = "^(Picture-in-Picture)$" },
+    float = true,
+    pin   = true,
+    size  = "640 360",
+})
