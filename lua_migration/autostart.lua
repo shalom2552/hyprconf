@@ -1,36 +1,40 @@
-# ~/.config/hypr/autostart.conf
-##############################
-# AUTOSTART
-##############################
+-- ~/.config/hypr/autostart.conf
 
-# Wayland session environment
-exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+--===========================
+-- AUTOSTART
+--===========================
 
-# Wallpaper
-exec-once = pkill -x awww-daemon; sleep 0.1; awww-daemon
-exec-once = bash ~/.config/hypr/scripts/set-wallpaper.sh
+hl.on("hyprland.start", function ()
 
-# Notifications
-exec-once = swaync
+  -- Wayland session environment
+  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+  hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
-# GTK dark mode
-exec-once = gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-exec-once = gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"
+  -- Wallpaper
+  hl.exec_cmd("pkill -x awww-daemon; sleep 0.1; awww-daemon")
+  hl.exec_cmd("bash ~/.config/hypr/scripts/set-wallpaper.sh")
 
-# System tray
-exec-once = nm-applet
+  -- Notifications
+  hl.exec_cmd("swaync")
 
-# cliphist
-exec-once = wl-paste --type text --watch cliphist store
-exec-once = wl-paste --type image --watch cliphist store
+  -- GTK dark mode
+  hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
+  hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'")
 
-# OSD for volume/brightness
-exec-once = swayosd-server
+  -- System tray
+  hl.exec_cmd("nm-applet")
 
-# Idle daemon
-exec-once = hypridle
+  -- cliphist
+  hl.exec_cmd("wl-paste --type text --watch cliphist store")
+  hl.exec_cmd("wl-paste --type image --watch cliphist store")
 
-# Quickshell popup manager (wallpaper picker)
-exec-once = bash ~/.config/hypr/scripts/get_monitor_offset.sh
+  -- OSD for volume/brightness
+  hl.exec_cmd("swayosd-server")
 
+  -- Idle daemon
+  hl.exec_cmd("hypridle")
+
+  -- Quickshell popup manager (wallpaper picker)
+  hl.exec_cmd("bash ~/.config/hypr/scripts/get_monitor_offset.sh")
+
+end)
