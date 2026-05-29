@@ -1,32 +1,39 @@
-# ~/.config/hypr/input.conf
+-- ~/.config/hypr/input.conf
+--===========================
+-- INPUT
+--===========================
 
-##############################
-# INPUT
-##############################
+hl.config({
+    input = {
 
-input {
-    kb_layout = us,il
-    kb_variant =
-    kb_model =
-    kb_options = caps:escape, grp:win_space_toggle
-    kb_rules =
+        kb_layout = "us,il",
+        kb_variant = "",
+        kb_model = "",
+        kb_options = "caps:escape, grp:win_space_toggle",
+        kb_rules = "",
 
-    follow_mouse = 1
+        follow_mouse = 1,
 
-    repeat_rate = 50
-    repeat_delay = 250
-    numlock_by_default = true
+        repeat_rate = 50,
+        repeat_delay = 250,
+        numlock_by_default = true,
 
-    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0,
 
-    natural_scroll = true
+        natural_scroll = true,
 
-    touchpad {
-        natural_scroll = true
-        tap-to-click = true
-    }
-}
+        touchpad = {
+            natural_scroll = true,
+            tap_to_click = true,
+        },
 
-# Touchpad
-gesture = 3, vertical, workspace    # 3 fingers swipe workspaces
+    },
+})
+
+-- Touchpad
+hl.gesture({
+    fingres = 3,
+    direction = "vertical",
+    action = "workspace",    -- 3 fingers swipe workspaces
+})
 
