@@ -7,7 +7,7 @@
 
 - [ ] super+w not working (may actually switch to a script to randomly switch instead).
 - [ ] switch workspaces not working.
-- [ ] Pop-ups getting stacked instead of killing previous.
+- [x] Pop-ups getting stacked instead of killing previous.
 - [ ] Power pop-up not locking (rest works?).
 
 ## Legacy

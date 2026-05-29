@@ -68,13 +68,13 @@ fi
 
 # ==== OUTER: launched by keybind ====
 
-existing=$(hyprctl clients -j 2>/dev/null \
-    | jq -r '.[] | select(.class | startswith("fzf-popup")) | .class' \
+read -r existing_pid existing_class < <(hyprctl clients -j 2>/dev/null \
+    | jq -r '.[] | select(.class | startswith("fzf-popup")) | "\(.pid) \(.class)"' \
     | head -1)
 
-if [[ -n "$existing" ]]; then
-    hyprctl dispatch killwindow "class:${existing}"
-    [[ "$existing" == "$WINDOW_CLASS" ]] && exit 0
+if [[ -n "$existing_pid" ]]; then
+    kill "$existing_pid" 2>/dev/null || true
+    [[ "$existing_class" == "$WINDOW_CLASS" ]] && exit 0
     sleep 0.15
 fi
 
