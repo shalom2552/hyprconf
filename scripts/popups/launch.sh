@@ -75,7 +75,7 @@ existing=$(hyprctl clients -j 2>/dev/null \
 if [[ -n "$existing" ]]; then
     hyprctl dispatch killwindow "class:${existing}"
     [[ "$existing" == "$WINDOW_CLASS" ]] && exit 0
-    sleep 0.05
+    sleep 0.15
 fi
 
 RESULT_FILE=$(mktemp /tmp/launch-XXXXXX)
