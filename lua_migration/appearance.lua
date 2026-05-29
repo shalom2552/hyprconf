@@ -1,9 +1,7 @@
 -- ~/.config/hypr/appearance.conf
-
 --===========================
 -- APPEARANCE
 --===========================
-
 hl.config({
 
     -- General

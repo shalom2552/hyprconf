@@ -1,5 +1,4 @@
 -- ~/.config/hypr/env.conf
-
 --===========================
 -- ENVIRONMENT VARIABLES
 --===========================
