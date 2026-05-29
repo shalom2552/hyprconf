@@ -1,7 +1,7 @@
 -- ~/.config/hypr/config.lua
 
 --==========================
---  DEFAULT PROGRAMS
+-- DEFAULT PROGRAMS
 --==========================
 return {
   terminal = "kitty",

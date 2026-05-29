@@ -1,7 +1,7 @@
-# ~/.config/hypr/hyprland.lua
+-- ~/.config/hypr/hyprland.lua
 
 --============================
---  SOURCING
+-- SOURCING
 --============================
 require("env")
 require("autostart")
@@ -12,5 +12,5 @@ require("keybinds")
 require("monitors")
 require("window-rules")
 require("input")
-require("local")
+require("machine")
 
