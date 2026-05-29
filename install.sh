@@ -280,36 +280,36 @@ gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null 
 # ---------------------------------------------------
 # 8. Monitor layout (after all installs — safe to skip/timeout)
 # ---------------------------------------------------
-if [ ! -f "$HYPR_DIR/monitors.conf" ]; then
+if [ ! -f "$HYPR_DIR/monitors.lua" ]; then
     echo ""
-    log_info "No monitors.conf found. How many monitors do you have?"
-    echo "  1) 1 monitor  (Laptop)"
-    echo "  2) 2 monitors (Desktop)"
+    log_info "No monitors.lua found. How many monitors do you have?"
+    echo "  1) 1 monitor  (Single)"
+    echo "  2) 2 monitors (Dual)"
     MONITOR_CHOICE=""
     read -t 30 -rp "  Enter choice [1/2, default=1]: " MONITOR_CHOICE || true
-    [ -z "$MONITOR_CHOICE" ] && log_info "No input — defaulting to 1-monitor (Laptop)."
+    [ -z "$MONITOR_CHOICE" ] && log_info "No input — defaulting to 1-monitor (single)."
     case "$MONITOR_CHOICE" in
         2)
-            cp "$HYPR_DIR/monitors.conf.desktop" "$HYPR_DIR/monitors.conf"
-            log_info "Copied 2-monitor (Desktop) config."
+            cp "$HYPR_DIR/monitors.lua.dual" "$HYPR_DIR/monitors.lua"
+            log_info "Copied 2-monitor (Dual) config."
             ;;
         *)
-            cp "$HYPR_DIR/monitors.conf.laptop" "$HYPR_DIR/monitors.conf"
-            log_info "Copied 1-monitor (Laptop) config."
+            cp "$HYPR_DIR/monitors.lua.single" "$HYPR_DIR/monitors.lua"
+            log_info "Copied 1-monitor (Single) config."
             ;;
     esac
-    log_info "Edit monitors.conf to match your displays (run 'hyprctl monitors' to list them)."
+    log_warn "Edit monitors.lua to match your displays (run 'hyprctl monitors' to list them)."
 else
-    log_info "monitors.conf already exists, skipping."
+    log_info "monitors.lua already exists, skipping."
 fi
 
 # ---------------------------------------------------
 # 9. Local config
 # ---------------------------------------------------
-if [ ! -f "$HYPR_DIR/local.conf" ]; then
-    log_info "Creating local.conf..."
-    printf "# ~/.config/hypr/local.conf\n# Machine-specific config — not tracked in git.\n" \
-        > "$HYPR_DIR/local.conf"
+if [ ! -f "$HYPR_DIR/machine.lua" ]; then
+    log_info "Creating machine.lua..."
+    printf "-- ~/.config/hypr/machine.lua\n-- Machine-specific config — not tracked in git.\n" \
+        > "$HYPR_DIR/machine.lua"
 fi
 
 # ---------------------------------------------------

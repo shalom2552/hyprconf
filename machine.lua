@@ -1,2 +1,0 @@
--- ~/.config/hypr/machine.lua
--- Machine-specific config — not tracked in git.

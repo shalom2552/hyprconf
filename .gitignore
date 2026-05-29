@@ -1,4 +1,8 @@
+
+# Machine specifics
+monitors.lua
+machine.lua
+
+# Legacy conf
 monitors.conf
 local.conf
-.claude/
-CLAUDE.md

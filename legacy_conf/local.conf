@@ -1,0 +1,2 @@
+# ~/.config/hypr/local.conf
+# Machine-specific config — not tracked in git.
