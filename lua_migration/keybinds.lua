@@ -1,147 +1,85 @@
-# ~/.config/hypr/keybinds.conf
+-- ~/.config/hypr/keybinds.lua
+--===========================
+-- KEYBINDS
+--===========================
+local cfg = require("config")
+local mainMod = "SUPER"
 
-# Set mainMod as superkey (windows-key)
-$mainMod = SUPER
+-- APPLICATIONS
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(cfg.terminal))
+hl.bind(mainMod .. " + T",      hl.dsp.exec_cmd(cfg.terminal))
+hl.bind(mainMod .. " + F",      hl.dsp.exec_cmd(cfg.fileManager))
+hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd(cfg.internetBrowser))
 
-##############################
-# APPLICATIONS
-##############################
+-- LAUNCHERS & UI
+hl.bind("ALT + TAB",       hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/alttab.sh"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/qs_manager.sh toggle wallpaper"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/launch.sh"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/clip.sh"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/power.sh"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprland-run"))
 
-bind = $mainMod, RETURN, exec, $terminal
-bind = $mainMod, T,      exec, $terminal
-bind = $mainMod, F,      exec, $fileManager
-bind = $mainMod, B,      exec, $internetBrowser
+-- WINDOW MANAGEMENT
+hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/toggle_float.sh"))
+hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = 0 }))
 
+-- FOCUS & NAVIGATION
+hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + up",    hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/smart_focus.sh up"))
+hl.bind(mainMod .. " + down",  hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/smart_focus.sh down"))
+hl.bind(mainMod .. " + H",     hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + L",     hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + K",     hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/smart_focus.sh up"))
+hl.bind(mainMod .. " + J",     hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/smart_focus.sh down"))
 
-##############################
-# LAUNCHERS & UI
-##############################
+-- MOVE WINDOWS
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/window_to_workspace.sh prev"))
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/window_to_workspace.sh next"))
+hl.bind(mainMod .. " + SHIFT + K",     hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/window_to_workspace.sh prev"))
+hl.bind(mainMod .. " + SHIFT + J",     hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/window_to_workspace.sh next"))
 
-bind = ALT,      TAB,   exec, bash ~/.config/hypr/scripts/popups/alttab.sh
-bind = $mainMod, W,    exec, bash ~/.config/hypr/scripts/qs_manager.sh toggle wallpaper
-bind = $mainMod, D,    exec, bash ~/.config/hypr/scripts/popups/launch.sh
-bind = $mainMod, C,    exec, bash ~/.config/hypr/scripts/popups/clip.sh
-bind = $mainMod, X,    exec, bash ~/.config/hypr/scripts/popups/power.sh
-bind = $mainMod, A,    exec, swaync-client -t -sw
-bind = $mainMod, R,    exec, hyprland-run
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.move({ monitor = "l" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ monitor = "r" }))
+hl.bind(mainMod .. " + CTRL + left",   hl.dsp.window.move({ monitor = "l" }))
+hl.bind(mainMod .. " + CTRL + right",  hl.dsp.window.move({ monitor = "r" }))
+hl.bind(mainMod .. " + SHIFT + H",     hl.dsp.window.move({ monitor = "l" }))
+hl.bind(mainMod .. " + SHIFT + L",     hl.dsp.window.move({ monitor = "r" }))
+hl.bind(mainMod .. " + CTRL + H",      hl.dsp.window.move({ monitor = "l" }))
+hl.bind(mainMod .. " + CTRL + L",      hl.dsp.window.move({ monitor = "r" }))
 
-##############################
-# WINDOW MANAGEMENT
-##############################
+-- MOUSE MOVE/RESIZE
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-bind = $mainMod, Q,    killactive,
-bind = $mainMod, G,    exec, bash ~/.config/hypr/scripts/toggle_float.sh
-bind = $mainMod, S,    layoutmsg, togglesplit # dwindle layout
-bind = $mainMod, Z,    fullscreen, 0
+-- WORKSPACES
+for i = 1, 10 do
+    local key = tostring(i % 10)  -- maps 10 → "0"
+    hl.bind(mainMod .. " + " .. key,              hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + " .. key,      hl.dsp.window.move({ workspace = i }))
+end
 
-bindel = $mainMod, M,    exec, hyprlock  # lock screen
+-- MOUSE SCROLL WORKSPACES
+hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/workspace_switch.sh next"))
+hl.bind(mainMod .. " + mouse_up",   hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/workspace_switch.sh prev"))
 
+-- SCREENSHOTS
+hl.bind("Print",       hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screenshot.sh region"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screenshot.sh full"))
 
-##############################
-# FOCUS & NAVIGATION
-##############################
+-- VOLUME & BRIGHTNESS
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("swayosd-client --output-volume raise"),  { repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("swayosd-client --output-volume lower"),  { repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"), { locked = true })
+hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"),  { locked = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("swayosd-client --brightness raise"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"), { repeating = true })
 
-# Focus between windows; falls back to workspace switch if no window in that direction
-bind = $mainMod, left,  movefocus, l
-bind = $mainMod, right, movefocus, r
-bind = $mainMod, up,   exec, bash ~/.config/hypr/scripts/smart_focus.sh up
-bind = $mainMod, down, exec, bash ~/.config/hypr/scripts/smart_focus.sh down
-
-bind = $mainMod, H,  movefocus, l
-bind = $mainMod, L, movefocus, r
-bind = $mainMod, K,   exec, bash ~/.config/hypr/scripts/smart_focus.sh up
-bind = $mainMod, J, exec, bash ~/.config/hypr/scripts/smart_focus.sh down
-
-
-##############################
-# MOVE WINDOWS
-##############################
-
-# Move window to workspace (up/down)
-bind = $mainMod SHIFT, up,   exec, bash ~/.config/hypr/scripts/window_to_workspace.sh prev
-bind = $mainMod SHIFT, down, exec, bash ~/.config/hypr/scripts/window_to_workspace.sh next
-
-bind = $mainMod SHIFT, K,   exec, bash ~/.config/hypr/scripts/window_to_workspace.sh prev
-bind = $mainMod SHIFT, J, exec, bash ~/.config/hypr/scripts/window_to_workspace.sh next
-
-# Move window to other monitor (left/right) — Shift or Ctrl
-bind = $mainMod SHIFT, left,  movewindow, mon:l
-bind = $mainMod SHIFT, right, movewindow, mon:r
-bind = $mainMod&CTRL,  left,  movewindow, mon:l
-bind = $mainMod&CTRL,  right, movewindow, mon:r
-
-bind = $mainMod SHIFT, H,  movewindow, mon:l
-bind = $mainMod SHIFT, L, movewindow, mon:r
-bind = $mainMod&CTRL,  H,  movewindow, mon:l
-bind = $mainMod&CTRL,  L, movewindow, mon:r
-
-# Move/resize with mouse
-bindm = $mainMod, mouse:272, movewindow
-bindm = $mainMod, mouse:273, resizewindow
-
-
-##############################
-# WORKSPACES
-##############################
-
-# Switch to workspace
-bind = $mainMod, 1, workspace, 1
-bind = $mainMod, 2, workspace, 2
-bind = $mainMod, 3, workspace, 3
-bind = $mainMod, 4, workspace, 4
-bind = $mainMod, 5, workspace, 5
-bind = $mainMod, 6, workspace, 6
-bind = $mainMod, 7, workspace, 7
-bind = $mainMod, 8, workspace, 8
-bind = $mainMod, 9, workspace, 9
-bind = $mainMod, 0, workspace, 10
-
-# Move window to workspace
-bind = $mainMod SHIFT, 1, movetoworkspace, 1
-bind = $mainMod SHIFT, 2, movetoworkspace, 2
-bind = $mainMod SHIFT, 3, movetoworkspace, 3
-bind = $mainMod SHIFT, 4, movetoworkspace, 4
-bind = $mainMod SHIFT, 5, movetoworkspace, 5
-bind = $mainMod SHIFT, 6, movetoworkspace, 6
-bind = $mainMod SHIFT, 7, movetoworkspace, 7
-bind = $mainMod SHIFT, 8, movetoworkspace, 8
-bind = $mainMod SHIFT, 9, movetoworkspace, 9
-bind = $mainMod SHIFT, 0, movetoworkspace, 10
-
-# Scroll through workspaces with mouse wheel (current monitor)
-bind = $mainMod, mouse_down, exec, bash ~/.config/hypr/scripts/workspace_switch.sh next
-bind = $mainMod, mouse_up,   exec, bash ~/.config/hypr/scripts/workspace_switch.sh prev
-
-
-##############################
-# SCREENSHOTS
-##############################
-
-# Region screenshot → clipboard + saved to ~/Pictures/Screenshots/
-bind = ,       Print, exec, bash ~/.config/hypr/scripts/screenshot.sh region
-# Full screen screenshot → clipboard + saved
-bind = SHIFT,  Print, exec, bash ~/.config/hypr/scripts/screenshot.sh full
-
-
-##############################
-# VOLUME & BRIGHTNESS
-# Uses swayosd for visual OSD feedback.
-# Requires swayosd-server running in autostart.
-##############################
-
-bindel = , XF86AudioRaiseVolume,  exec, swayosd-client --output-volume raise
-bindel = , XF86AudioLowerVolume,  exec, swayosd-client --output-volume lower
-bindl  = , XF86AudioMute,         exec, swayosd-client --output-volume mute-toggle
-bindl  = , XF86AudioMicMute,      exec, swayosd-client --input-volume mute-toggle
-bindel = , XF86MonBrightnessUp,   exec, swayosd-client --brightness raise
-bindel = , XF86MonBrightnessDown, exec, swayosd-client --brightness lower
-
-##############################
-# MEDIA KEYS
-##############################
-
-bindl = , XF86AudioNext,  exec, playerctl next
-bindl = , XF86AudioPrev,  exec, playerctl previous
-bindl = , XF86AudioPause, exec, playerctl play-pause
-bindl = , XF86AudioPlay,  exec, playerctl play-pause
-
+-- MEDIA KEYS
+hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),        { locked = true })
+hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),    { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
+hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
