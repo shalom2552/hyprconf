@@ -32,7 +32,7 @@ hl.config({
 
 -- Touchpad
 hl.gesture({
-    fingres = 3,
+    fingers = 3,
     direction = "vertical",
     action = "workspace",    -- 3 fingers swipe workspaces
 })
