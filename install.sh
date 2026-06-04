@@ -137,7 +137,7 @@ packages=(
     sddm
     loupe
     playerctl
-    grim slurp wl-clipboard
+    grim slurp wl-clipboard wf-recorder
     network-manager-applet
     matugen
     stow
