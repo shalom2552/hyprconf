@@ -29,8 +29,12 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 * **Notifications:** SwayNC
 * **OSD:** SwayOSD
 * **Wallpaper:** awww
-* **Popups:** fzf-based App Launcher, Power Menu, Clipboard, Window Switcher
+* **App Launcher:** fzf popup
+* **Window Switcher:** fzf popup
+* **Clipboard:** cliphist + fzf popup
+* **Power Menu:** fzf popup
 * **Screenshots:** grim + slurp
+* **Screen Recording:** wf-recorder
 
 ## Keybinds
 
