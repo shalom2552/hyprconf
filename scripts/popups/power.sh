@@ -27,7 +27,7 @@ SHUTDOWN="Shutdown"
 # Format: "Icon|Color|Label|Command"
 # Symbols: 󰌾 Lock, 󰗼 Logout, 󰖔 Suspend, 󰜉 Reboot, 󰐥 Shutdown
 ACTIONS=(
-    "󰌾|${C_BLUE}|${LOCK}|loginctl lock-session || hyprlock"
+    "󰌾|${C_BLUE}|${LOCK}|hyprlock"
     "󰗼|${C_YELLOW}|${LOGOUT}|uwsm stop"
     "󰖔|${C_PURPLE}|${SUSPEND}|systemctl suspend"
     "󰜉|${C_ORANGE}|${REBOOT}|systemctl reboot"
