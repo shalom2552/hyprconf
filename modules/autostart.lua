@@ -1,4 +1,4 @@
--- ~/.config/hypr/autostart.lua
+-- ~/.config/hypr/modules/autostart.lua
 --===========================
 -- AUTOSTART
 --===========================

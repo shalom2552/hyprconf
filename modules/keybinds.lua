@@ -1,8 +1,8 @@
--- ~/.config/hypr/keybinds.lua
+-- ~/.config/hypr/modules/keybinds.lua
 --===========================
 -- KEYBINDS
 --===========================
-local cfg = require("config")
+local cfg = require("modules/config")
 local mainMod = "SUPER"
 
 -- APPLICATIONS

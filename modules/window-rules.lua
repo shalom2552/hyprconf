@@ -1,4 +1,4 @@
--- ~/.config/hypr/window-rules.lua
+-- ~/.config/hypr/modules/window-rules.lua
 --===========================
 -- WINDOW RULES
 --===========================

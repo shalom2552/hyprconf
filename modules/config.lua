@@ -1,4 +1,4 @@
--- ~/.config/hypr/config.lua
+-- ~/.config/hypr/modules/config.lua
 --==========================
 -- DEFAULT PROGRAMS
 --==========================

@@ -1,4 +1,4 @@
--- ~/.config/hypr/layouts.lua
+-- ~/.config/hypr/modules/layouts.lua
 --===========================
 -- LAYOUTS
 --===========================

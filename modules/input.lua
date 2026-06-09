@@ -1,4 +1,4 @@
--- ~/.config/hypr/input.lua
+-- ~/.config/hypr/modules/input.lua
 --===========================
 -- INPUT
 --===========================

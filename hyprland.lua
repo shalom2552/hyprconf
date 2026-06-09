@@ -2,14 +2,14 @@
 --============================
 -- SOURCING
 --============================
-require("env")
-require("autostart")
-require("appearance")
-require("animations")
-require("layouts")
-require("keybinds")
+require("modules/env")
+require("modules/autostart")
+require("modules/appearance")
+require("modules/animations")
+require("modules/layouts")
+require("modules/input")
+require("modules/keybinds")
+require("modules/window-rules")
 require("monitors")
-require("window-rules")
-require("input")
 require("machine")
 

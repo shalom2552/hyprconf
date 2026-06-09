@@ -1,4 +1,4 @@
--- ~/.config/hypr/animations.lua
+-- ~/.config/hypr/modules/animations.lua
 --===========================
 -- ANIMATIONS
 --===========================

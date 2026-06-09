@@ -1,4 +1,4 @@
--- ~/.config/hypr/env.lua
+-- ~/.config/hypr/modules/env.lua
 --===========================
 -- ENVIRONMENT VARIABLES
 --===========================
