@@ -22,7 +22,7 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprland-run"))
 
 -- WINDOW MANAGEMENT
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/toggle_float.sh"))
+hl.bind(mainMod .. " + G", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = 0 }))
 
