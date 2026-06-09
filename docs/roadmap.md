@@ -5,7 +5,7 @@
 
 ## Issues
 
-- [ ] super+w not working (may actually switch to a script to randomly switch instead).
+- [x] super+w not working (may actually switch to a script to randomly switch instead).
 - [ ] switch workspaces not working.
 - [x] Pop-ups getting stacked instead of killing previous.
 - [ ] Power pop-up not locking (rest works?).

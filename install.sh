@@ -55,7 +55,6 @@ echo "    • Hyprland, Hyprlock, Hypridle"
 echo "    • SwayNC, SwayOSD"
 echo "    • Bluetooth + audio (pipewire, bluez)"
 echo "    • Wallpapers + Matugen theming"
-echo "    • Quickshell wallpaper picker (QML)"
 echo "    • fzf popups: launcher, power, clipboard"
 echo "    • Monitor layout selection"
 echo ""
@@ -139,7 +138,6 @@ packages=(
     playerctl
     grim slurp wl-clipboard
     network-manager-applet
-    matugen
     stow
     xdg-desktop-portal-hyprland
     polkit-gnome
@@ -170,7 +168,6 @@ log_info "Installing AUR packages (yay)..."
 
 aur_packages=(
     xdg-terminal-exec
-    quickshell-git
     awww
     bluetuith
     zen-browser-bin

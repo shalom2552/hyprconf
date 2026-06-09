@@ -105,13 +105,6 @@ hl.window_rule({
     float = true,
 })
 
--- Quickshell popup manager — parked off-screen
-hl.window_rule({
-    name  = "qs-master",
-    match = { title = "^(qs-master)$" },
-    float = true,
-    move  = "-5000 -5000",
-})
 
 -- Zen Browser Picture-in-Picture
 hl.window_rule({

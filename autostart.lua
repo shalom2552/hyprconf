@@ -33,7 +33,4 @@ hl.on("hyprland.start", function ()
   -- Idle daemon
   hl.exec_cmd("hypridle")
 
-  -- Quickshell popup manager (wallpaper picker)
-  hl.exec_cmd("bash ~/.config/hypr/scripts/get_monitor_offset.sh")
-
 end)
