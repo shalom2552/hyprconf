@@ -10,6 +10,6 @@ require("modules/layouts")
 require("modules/input")
 require("modules/keybinds")
 require("modules/window-rules")
-require("monitors")
-require("machine")
+require("modules/monitors")
+require("modules/machine")
 

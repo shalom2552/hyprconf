@@ -277,7 +277,7 @@ gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null 
 # ---------------------------------------------------
 # 8. Monitor layout (after all installs — safe to skip/timeout)
 # ---------------------------------------------------
-if [ ! -f "$HYPR_DIR/monitors.lua" ]; then
+if [ ! -f "$HYPR_DIR/modules/monitors.lua" ]; then
     echo ""
     log_info "No monitors.lua found. How many monitors do you have?"
     echo "  1) 1 monitor  (Single)"
@@ -287,15 +287,15 @@ if [ ! -f "$HYPR_DIR/monitors.lua" ]; then
     [ -z "$MONITOR_CHOICE" ] && log_info "No input — defaulting to 1-monitor (single)."
     case "$MONITOR_CHOICE" in
         2)
-            cp "$HYPR_DIR/monitors.lua.dual" "$HYPR_DIR/monitors.lua"
+            cp "$HYPR_DIR/templates/monitors.lua.dual" "$HYPR_DIR/modules/monitors.lua"
             log_info "Copied 2-monitor (Dual) config."
             ;;
         *)
-            cp "$HYPR_DIR/monitors.lua.single" "$HYPR_DIR/monitors.lua"
+            cp "$HYPR_DIR/templates/monitors.lua.single" "$HYPR_DIR/modules/monitors.lua"
             log_info "Copied 1-monitor (Single) config."
             ;;
     esac
-    log_warn "Edit monitors.lua to match your displays (run 'hyprctl monitors' to list them)."
+    log_warn "Edit modules/monitors.lua to match your displays (run 'hyprctl monitors' to list them)."
 else
     log_info "monitors.lua already exists, skipping."
 fi
@@ -303,10 +303,10 @@ fi
 # ---------------------------------------------------
 # 9. Local config
 # ---------------------------------------------------
-if [ ! -f "$HYPR_DIR/machine.lua" ]; then
-    log_info "Creating machine.lua..."
-    printf "-- ~/.config/hypr/machine.lua\n-- Machine-specific config — not tracked in git.\n" \
-        > "$HYPR_DIR/machine.lua"
+if [ ! -f "$HYPR_DIR/modules/machine.lua" ]; then
+    log_info "Creating modules/machine.lua..."
+    printf "-- ~/.config/hypr/modules/machine.lua\n-- Machine-specific config — not tracked in git.\n" \
+        > "$HYPR_DIR/modules/machine.lua"
 fi
 
 # ---------------------------------------------------

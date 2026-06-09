@@ -1,4 +1,4 @@
--- ~/.config/hypr/monitors.lua
+-- ~/.config/hypr/modules/monitors.lua
 --===========================
 -- MONITORS
 --===========================

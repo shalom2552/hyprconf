@@ -1,7 +1,7 @@
 
 # Machine specifics
-monitors.lua
-machine.lua
+modules/monitors.lua
+modules/machine.lua
 
 # Legacy conf
 monitors.conf
