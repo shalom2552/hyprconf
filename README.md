@@ -11,7 +11,7 @@ Personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven, termin
 bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 ```
 
-> Installs all dependencies (pacman + AUR), deploys configs, sets up wallpapers, configures monitors.
+> Requires Hyprland ≥ 0.55 (Lua config). Installs all dependencies (pacman + AUR), deploys configs, sets up wallpapers, configures monitors.
 
 ---
 
@@ -28,7 +28,7 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 * **Idle Daemon:** Hypridle
 * **Notifications:** SwayNC
 * **OSD:** SwayOSD
-* **Wallpaper + Picker:** awww + Quickshell (QML)
+* **Wallpaper:** awww
 * **Popups:** fzf-based App Launcher, Power Menu, Clipboard, Window Switcher
 * **Screenshots:** grim + slurp
 
@@ -37,7 +37,7 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 * `Super + D` — App Launcher
 * `Super + X` — Power Menu
 * `Super + C` — Clipboard
-* `Super + W` — Wallpaper Picker
+* `Super + W` — Set Wallpaper
 * `Super + A` — Notification Center
 * `Alt + Tab` — Window Switcher
 * `Super + G` — Toggle Float
@@ -49,6 +49,3 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 * `Print` — Screenshot Region
 * `Shift + Print` — Screenshot Full
 
-## Credits
-
-- Wallpaper Picker — inspired by [ilyamiro/nixos-configuration](https://github.com/ilyamiro/nixos-configuration)

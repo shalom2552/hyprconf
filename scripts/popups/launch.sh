@@ -89,7 +89,8 @@ app_id="$(basename "$desktop_file" .desktop)"
 exec_cmd=$(grep -m1 "^Exec=" "$desktop_file" | cut -d= -f2- | sed 's/ %[a-zA-Z]//g')
 
 if grep -q "^Terminal=true" "$desktop_file"; then
-    hyprctl dispatch exec -- kitty -e bash -i -c "$exec_cmd"
+    setsid kitty -e bash -i -c "$exec_cmd" &>/dev/null &
+    disown
 else
     (gtk-launch "$app_id" > /dev/null 2>&1 &)
 fi

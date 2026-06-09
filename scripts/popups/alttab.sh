@@ -76,4 +76,4 @@ kitty --class "$WINDOW_CLASS" -e "$SCRIPT" --inner "$RESULT_FILE"
 
 addr=$(cat "$RESULT_FILE")
 rm -f "$RESULT_FILE"
-[[ -n "$addr" ]] && hyprctl dispatch focuswindow "address:$addr"
+[[ -n "$addr" ]] && hyprctl dispatch "hl.dsp.focus({window='address:$addr'})"
