@@ -18,7 +18,8 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/l
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/clip.sh"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/power.sh"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprland-run"))
+hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screen_record.sh"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screen_record.sh -g"))
 
 -- WINDOW MANAGEMENT
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
