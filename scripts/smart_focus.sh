@@ -61,7 +61,7 @@ TARGET_ADDR=$(echo "$CLIENTS" | jq -r \
     end // empty')
 
 if [[ -n "$TARGET_ADDR" ]]; then
-    hyprctl dispatch focuswindow "address:$TARGET_ADDR"
+    hyprctl dispatch "hl.dsp.focus({window='address:$TARGET_ADDR'})"
 else
     bash ~/.config/hypr/scripts/workspace_switch.sh "$( [[ $DIR == up ]] && echo prev || echo next )"
 fi

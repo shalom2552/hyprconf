@@ -22,7 +22,7 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprland-run"))
 
 -- WINDOW MANAGEMENT
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + G", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/toggle_float.sh"))
 hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = 0 }))
 
@@ -42,14 +42,11 @@ hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.exec_cmd("bash ~/.config/hypr/scri
 hl.bind(mainMod .. " + SHIFT + K",     hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/window_to_workspace.sh prev"))
 hl.bind(mainMod .. " + SHIFT + J",     hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/window_to_workspace.sh next"))
 
-hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.move({ monitor = "l" }))
-hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ monitor = "r" }))
-hl.bind(mainMod .. " + CTRL + left",   hl.dsp.window.move({ monitor = "l" }))
-hl.bind(mainMod .. " + CTRL + right",  hl.dsp.window.move({ monitor = "r" }))
-hl.bind(mainMod .. " + SHIFT + H",     hl.dsp.window.move({ monitor = "l" }))
-hl.bind(mainMod .. " + SHIFT + L",     hl.dsp.window.move({ monitor = "r" }))
-hl.bind(mainMod .. " + CTRL + H",      hl.dsp.window.move({ monitor = "l" }))
-hl.bind(mainMod .. " + CTRL + L",      hl.dsp.window.move({ monitor = "r" }))
+-- shell dispatch silences "no monitor" Lua error notification
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.exec_cmd([[hyprctl dispatch "hl.dsp.window.move({monitor='l'})" >/dev/null 2>&1]]))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.exec_cmd([[hyprctl dispatch "hl.dsp.window.move({monitor='r'})" >/dev/null 2>&1]]))
+hl.bind(mainMod .. " + SHIFT + H",     hl.dsp.exec_cmd([[hyprctl dispatch "hl.dsp.window.move({monitor='l'})" >/dev/null 2>&1]]))
+hl.bind(mainMod .. " + SHIFT + L",     hl.dsp.exec_cmd([[hyprctl dispatch "hl.dsp.window.move({monitor='r'})" >/dev/null 2>&1]]))
 
 -- MOUSE MOVE/RESIZE
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
@@ -61,10 +58,6 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + " .. key,              hl.dsp.focus({ workspace = i }))
     hl.bind(mainMod .. " + SHIFT + " .. key,      hl.dsp.window.move({ workspace = i }))
 end
-
--- MOUSE SCROLL WORKSPACES
-hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/workspace_switch.sh next"))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/workspace_switch.sh prev"))
 
 -- SCREENSHOTS
 hl.bind("Print",       hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screenshot.sh region"))

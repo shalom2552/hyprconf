@@ -25,8 +25,8 @@ else
 fi
 TARGET=${SET[$TARGET_POS]}
 
-hyprctl dispatch moveworkspacetomonitor "$TARGET" "$CURRENT_MON" >/dev/null 2>&1
-hyprctl dispatch workspace "$TARGET"
+hyprctl dispatch "hl.dsp.workspace.move({workspace='$TARGET', monitor='$CURRENT_MON'})" >/dev/null 2>&1
+hyprctl dispatch "hl.dsp.focus({workspace=$TARGET})"
 
 hyprctl dismissnotify -1 >/dev/null 2>&1
 hyprctl notify -1 1500 "rgb(ffffff)" "$(( TARGET_POS + 1 ))"
