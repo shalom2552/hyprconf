@@ -19,6 +19,7 @@ if [[ "${1:-}" == "--inner" ]]; then
             --with-nth=2.. \
             --preview='echo {} | cliphist decode 2>/dev/null | cat -v | head -50' \
             --preview-window=right:50%:wrap \
+            --style=full \
             --preview-label=" Preview " \
             --border-label=" Clipboard History " \
             --no-info --border=rounded --height=100% \

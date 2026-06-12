@@ -63,6 +63,7 @@ if [[ "${1:-}" == "--inner" ]]; then
 
     selected=$(list_actions | fzf \
         --ansi \
+        --style=full \
         --delimiter=$'\t' \
         --with-nth=1 \
         --prompt="> " \

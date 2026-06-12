@@ -1,10 +1,10 @@
 #!/bin/bash
 
 WALL_DIR="$HOME/Pictures/wallpapers"
-TRANSITIONS=(grow outer any wipe wave pixel center)
+TRANSITIONS=(grow outer any wipe wave center)
 TRANSITION="${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}"
 
-WALL=$(ls "$WALL_DIR"/*.{jpg,jpeg,png} 2>/dev/null | shuf -n1)
+WALL=$( [ -f "$1" ] && echo "$1" || ls "$WALL_DIR"/*.{jpg,jpeg,png} 2>/dev/null | shuf -n1)
 [ -z "$WALL" ] && exit 1
 
 MONITORS=$(hyprctl monitors -j | jq -r '.[].name')

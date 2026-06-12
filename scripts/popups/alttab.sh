@@ -44,6 +44,7 @@ if [[ "${1:-}" == "--inner" ]]; then
             --delimiter=$'\t' \
             --with-nth=1 \
             --prompt="window > " \
+            --style=full \
             --pointer="▶" \
             --marker="✓" \
             --border-label=" Windows " \

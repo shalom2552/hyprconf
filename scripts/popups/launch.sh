@@ -49,6 +49,7 @@ if [[ "${1:-}" == "--inner" ]]; then
         --pointer="▶" \
         --marker="✓" \
         --select-1 \
+        --style=full \
         --border-label=" Application Launcher " \
         --bind="ctrl-r:execute(rm -f '$CACHE_FILE')+abort" \
         --preview="$PREVIEW_CMD" \

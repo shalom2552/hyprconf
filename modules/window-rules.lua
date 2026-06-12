@@ -51,7 +51,7 @@ hl.window_rule({
 hl.window_rule({
     name  = "fzf-popup-power",
     match = { class = "^(fzf-popup-power)$" },
-    size = "200 220",
+    size = "220 250",
 })
 
 -- Clipboard
@@ -65,7 +65,14 @@ hl.window_rule({
 hl.window_rule({
     name  = "fzf-popup-alttab",
     match = { class = "^(fzf-popup-alttab)$" },
-    size = "300 200",
+    size = "250 300",
+})
+
+-- Wallpaper
+hl.window_rule({
+    name  = "fzf-popup-wall",
+    match = { class = "^(fzf-popup-wall)$" },
+    size = "900 400",
 })
 
 --===========================

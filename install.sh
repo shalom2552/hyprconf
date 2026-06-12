@@ -149,6 +149,7 @@ packages=(
     pulsemixer
     bluez bluez-utils
     mpv
+    chafa
 )
 
 for pkg in "${packages[@]}"; do
