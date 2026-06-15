@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # ~/.config/hypr/scripts/screen_record.sh
 # Usage: screen_record.sh [-g]  (default: focused monitor; -g for region select)
 
@@ -33,4 +33,8 @@ wf-recorder -f "$dir/$filename" "${section[@]}" --audio="$(pactl get-default-sin
 # --- notify ---
 thumb=$(mktemp --suffix=.png)
 ffmpeg -y -i "$dir/$filename" -frames:v 1 "$thumb" 2>/dev/null
-notify-send -i "$thumb" "Screen recording saved" "$filename" -t 2000
+
+ACTION=$(notify-send -i "$thumb" -t 6000 -A "default=Open folder" "Screen recording saved" "$filename")
+# [ "$ACTION" = "default" ] && xdg-open "$dir" &
+[ "$ACTION" = "default" ] && xdg-open "$dir/$filename" & # open the file itself
+rm -f "$thumb"

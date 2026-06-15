@@ -23,4 +23,4 @@ case "$MODE" in
 esac
 
 ACTION=$(notify-send -i "$FILE" -t 6000 -A "default=Open folder" "$TITLE" "$(basename "$FILE")")
-[ "$ACTION" = "default" ] && xdg-open "$DIR" &
+[ "$ACTION" = "default" ] && xdg-open "$FILE" & # Open the file
