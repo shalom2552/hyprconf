@@ -78,3 +78,8 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),        { locked = t
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),    { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
+
+-- LID SWITCH — no-op on desktop (no lid switch device)
+-- lock is handled by before_sleep_cmd to avoid racing with suspend
+hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd([[hyprctl dispatch "hl.dsp.dpms('off')"]]),             { locked = true })
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd([[sleep 0.5 ; hyprctl dispatch "hl.dsp.dpms('on')"]]),  { locked = true })
