@@ -7,17 +7,20 @@
 ##############################
 
 MODE="${1:-region}"
-FILE="$HOME/Pictures/Screenshots/Screenshot-$(date +%F_%T).png"
-
-mkdir -p "$HOME/Pictures/Screenshots"
+DIR="$HOME/Pictures/Screenshots"
+FILE="$DIR/Screenshot-$(date +%F_%T).png"
+mkdir -p "$DIR"
 
 case "$MODE" in
     full)
         grim - | tee "$FILE" | wl-copy
-        notify-send -i "$FILE" "Full screen screenshot saved" -t 2000
+        TITLE="Full screen screenshot saved"
         ;;
     region|*)
         grim -g "$(slurp)" - | tee "$FILE" | wl-copy
-        notify-send -i "$FILE" "Region screenshot saved" -t 2000
+        TITLE="Region screenshot saved"
         ;;
 esac
+
+ACTION=$(notify-send -i "$FILE" -t 6000 -A "default=Open folder" "$TITLE" "$(basename "$FILE")")
+[ "$ACTION" = "default" ] && xdg-open "$DIR" &
