@@ -27,6 +27,7 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/toggle_float.sh"))
 hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = 0 }))
+hl.bind(mainMod .. " + SHIFT + Z", hl.dsp.window.tag({ tag = "opaque" })) -- window rule: "tag-opaque" 
 
 -- FOCUS & NAVIGATION
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))

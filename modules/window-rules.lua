@@ -79,25 +79,35 @@ hl.window_rule({
 -- TRANSPARENCY
 --===========================
 
--- Default transparency for all windows
-hl.window_rule({
-    name    = "default-transparency",
-    match   = { class = ".*" },
-    opacity = "0.8 0.8",
-})
+-- NOTE: moved to apearance
+-- -- Default transparency for all windows
+-- hl.window_rule({
+--     name    = "default-transparency",
+--     match   = { class = ".*" },
+--     opacity = "0.8 0.8",
+-- })
 
 -- Opaque exceptions — media players, image viewers
 hl.window_rule({
     name    = "opaque-media",
     match   = { class = "^(mpv|vlc|loupe|eog)$" },
-    opacity = "1.0 1.0",
+    opacity = "1.0 override",
 })
 
 -- Opaque when fullscreen
 hl.window_rule({
     name    = "opaque-fullscreen",
     match   = { fullscreen = true },
-    opacity = "1.0 1.0",
+    opacity = "1.0 override",
+})
+
+-- Transparency toggle target: windows tagged "opaque" render fully opaque
+-- This tule must be last transparent rule
+-- Keybind (SUPER+SHIFTY+Z)
+hl.window_rule({
+    name    = "tag-opaque",
+    match   = { tag = "opaque" },
+    opacity = "1.0 override",
 })
 
 --===========================
@@ -111,7 +121,6 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
-
 
 -- Zen Browser Picture-in-Picture
 hl.window_rule({
