@@ -1,7 +1,7 @@
 
 # Hyprconf
 
-Personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven, terminal-first. No status bar — everything is a keybind or a terminal.
+Hyprland configuration for Arch Linux. Minimal, keyboard-driven, terminal-first.
 
 > Shell and tool configs live in a [separate repository](https://github.com/shalom2552/dotfiles).
 
@@ -11,7 +11,7 @@ Personal Hyprland configuration for Arch Linux. Minimal, keyboard-driven, termin
 bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 ```
 
-> Requires Hyprland ≥ 0.55 (Lua config). Installs all dependencies (pacman + AUR), deploys configs, sets up wallpapers, configures monitors.
+> Requires Hyprland ≥ 0.55 (Lua config). For older versions see `legacy` branch.
 
 ---
 
@@ -28,28 +28,41 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 * **Idle Daemon:** Hypridle
 * **Notifications:** SwayNC
 * **OSD:** SwayOSD
-* **Wallpaper:** awww
 * **App Launcher:** fzf popup
+* **Command Runner:** kitty popup
 * **Window Switcher:** fzf popup
 * **Clipboard:** cliphist + fzf popup
 * **Power Menu:** fzf popup
+* **Wallpaper:** awww
 * **Screenshots:** grim + slurp
 * **Screen Recording:** wf-recorder
 
 ## Keybinds
 
-* `Super + D` — App Launcher
-* `Super + X` — Power Menu
-* `Super + C` — Clipboard
-* `Super + W` — Set Wallpaper
-* `Super + A` — Notification Center
-* `Alt + Tab` — Window Switcher
-* `Super + G` — Toggle Float
-* `Super + S` — Toggle Split
-* `Super + M` — Lock Screen
-* `Super + Shift + J/K` — Move Window to Workspace
-* `Super + Shift + H/L` — Move Window to Monitor
-* `Super + Space` — Switch Keyboard Layout (US / IL)
-* `Print` — Screenshot Region
-* `Shift + Print` — Screenshot Full
+
+| Keybind | Action |
+| :--- | :--- |
+| `Super + Return` / `Super + T` | Terminal |
+| `Super + F` | File Manager |
+| `Super + B` | Browser |
+| `Super + D` | App Launcher |
+| `Super + E` | Command Runner |
+| `Alt + Tab` | Window Switcher |
+| `Super + C` | Clipboard |
+| `Super + X` | Power Menu |
+| `Super + A` | Notification Center |
+| `Super + Q` | Close Window |
+| `Super + G` | Toggle Float |
+| `Super + S` | Toggle Split |
+| `Super + Z` | Fullscreen |
+| `Super + Shift + Z` | Toggle Window Opacity |
+| `Super + H/J/K/L` / `Arrows` | Focus Window |
+| `Super + Shift + H/J/K/L` | Move Window |
+| `Super + W` | Wallpaper Picker |
+| `Super + Shift + W` | Random Wallpaper |
+| `Print` | Screenshot Region |
+| `Shift + Print` | Screenshot Full |
+| `Super + R` | Screen Recording |
+| `Super + Shift + R` | Screen Recording (region) |
+| `Super + Space` | Switch Keyboard Layout |
 
