@@ -75,6 +75,13 @@ hl.window_rule({
     size = "900 400",
 })
 
+-- Runner
+hl.window_rule({
+    name  = "fzf-popup-runner",
+    match = { class = "^(fzf-popup-runner)$" },
+    size = "300 25",
+})
+
 --===========================
 -- TRANSPARENCY
 --===========================

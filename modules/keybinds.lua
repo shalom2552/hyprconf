@@ -16,6 +16,7 @@ hl.bind("ALT + TAB",       hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/a
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/launch.sh"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/clip.sh"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/power.sh"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/runner.sh"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/wallpaper.sh"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/set-wallpaper.sh"))
