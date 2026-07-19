@@ -28,7 +28,8 @@ else
 fi
 
 # --- record ---
-wf-recorder -f "$dir/$filename" "${section[@]}" --audio="$(pactl get-default-sink).monitor"
+# timeout: 2 hours, signal: INT (kill) after 2 hours
+timeout --signal=INT 2h wf-recorder -f "$dir/$filename" "${section[@]}" --audio="$(pactl get-default-sink).monitor"
 
 # --- notify ---
 thumb=$(mktemp --suffix=.png)
