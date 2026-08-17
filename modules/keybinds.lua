@@ -17,6 +17,7 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/l
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/clip.sh"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/power.sh"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/runner.sh"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/quick-search.sh"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/wallpaper.sh"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/set-wallpaper.sh"))
@@ -26,7 +27,7 @@ hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/
 -- WINDOW MANAGEMENT
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/toggle_float.sh"))
-hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + V", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = 0 }))
 hl.bind(mainMod .. " + SHIFT + Z", hl.dsp.window.tag({ tag = "opaque" })) -- window rule: "tag-opaque" 
 

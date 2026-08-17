@@ -137,3 +137,15 @@ hl.window_rule({
     pin   = true,
     size  = "640 360",
 })
+
+-- Google quick search
+hl.window_rule({
+    name  = "google-quick-search",
+    match        = { class = "chrome-www.google.com__-Default" },
+    float        = true,
+    center       = true,
+    opacity      = "1.0 1.0",
+    dim_around   = true,
+    pin          = true,
+    size     = "700 800",
+})
