@@ -47,13 +47,14 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 | `Super + B` | Browser |
 | `Super + D` | App Launcher |
 | `Super + E` | Command Runner |
+| `Super + S` | Quick Search |
 | `Alt + Tab` | Window Switcher |
 | `Super + C` | Clipboard |
 | `Super + X` | Power Menu |
 | `Super + A` | Notification Center |
 | `Super + Q` | Close Window |
 | `Super + G` | Toggle Float |
-| `Super + S` | Toggle Split |
+| `Super + V` | Toggle Split |
 | `Super + Z` | Fullscreen |
 | `Super + Shift + Z` | Toggle Window Opacity |
 | `Super + H/J/K/L` / `Arrows` | Focus Window |

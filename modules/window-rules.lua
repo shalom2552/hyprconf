@@ -86,7 +86,7 @@ hl.window_rule({
 -- TRANSPARENCY
 --===========================
 
--- NOTE: moved to apearance
+-- NOTE: moved to appearance
 -- -- Default transparency for all windows
 -- hl.window_rule({
 --     name    = "default-transparency",
@@ -109,8 +109,8 @@ hl.window_rule({
 })
 
 -- Transparency toggle target: windows tagged "opaque" render fully opaque
--- This tule must be last transparent rule
--- Keybind (SUPER+SHIFTY+Z)
+-- This rule must be last transparent rule
+-- Keybind (SUPER+SHIFT+Z)
 hl.window_rule({
     name    = "tag-opaque",
     match   = { tag = "opaque" },

@@ -2,7 +2,7 @@
 set -e
 
 HYPR_DIR="$HOME/.config/hypr"
-VERSION="1.4.3"
+VERSION="1.5.0"
 SDDM_THEME="catppuccin-mocha-blue"
 SDDM_THEME_PKG="sddm-theme-catppuccin"
 
@@ -55,7 +55,8 @@ echo "    • Hyprland, Hyprlock, Hypridle"
 echo "    • SwayNC, SwayOSD"
 echo "    • Bluetooth + audio (pipewire, bluez)"
 echo "    • Wallpapers"
-echo "    • fzf popups: launcher, power, clipboard"
+echo "    • fzf popups: launcher, power, clipboard,"
+echo "                 alttab, wallpaper, runner"
 echo "    • Monitor layout selection"
 echo ""
 read -r -p "  Proceed? [n/Y] " confirm
@@ -144,7 +145,7 @@ packages=(
     adw-gtk-theme
     cliphist fzf
     imagemagick ffmpeg python jq
-    thunar kitty
+    thunar kitty chromium
     pipewire pipewire-pulse pipewire-alsa wireplumber
     pulsemixer
     bluez bluez-utils
