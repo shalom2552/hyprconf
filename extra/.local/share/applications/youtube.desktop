@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=YouTube
+GenericName=Video Streaming
+Comment=Open YouTube in a standalone window
+Exec=chromium --app=https://www.youtube.com/
+Icon=youtube
+Type=Application
+Categories=AudioVideo;
+Terminal=false
+StartupWMClass=chrome-www.youtube.com__-Default
+

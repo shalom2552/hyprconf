@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=APP_NAME
+GenericName=GENERIC_NAME
+Comment=DESCRIPTION
+Exec=kitty APP_COMMAND
+Icon=ICON_NAME
+Terminal=false
+Categories=Utility;
+Keywords=KEYWORD1;KEYWORD2;
+StartupWMClass=kitty
+StartupNotify=true

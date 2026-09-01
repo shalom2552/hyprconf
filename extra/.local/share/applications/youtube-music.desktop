@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=YouTubeMusic
+GenericName=Music Streaming
+Comment=Open YouTube Music in a standalone window
+Exec=chromium --app=https://music.youtube.com/
+Icon=youtube-music
+Type=Application
+Categories=Audio;
+Terminal=false
+StartupWMClass=chrome-music.youtube.com__-Default
+

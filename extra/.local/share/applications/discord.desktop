@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Discord
+GenericName=Chat & Voice
+Comment=Open Discord in a chrome-web window
+Exec=chromium --app=https://discord.com/channels/@me
+Icon=Discord
+Type=Application
+Categories=Network;
+StartupWMClass=chrome-discord.com__channels_@me-Default
+Terminal=false

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Gemini
+GenericName=AI Assistant
+Comment=Open Gemini in a standalone window
+Exec=chromium --app=https://gemini.google.com/app
+Icon=gemini
+Type=Application
+Categories=Utility;
+StartupWMClass=chrome-gemini.google.com__app-Default
+Terminal=false

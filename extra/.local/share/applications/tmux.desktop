@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Tmux
+GenericName=Terminal Multiplexer
+Comment=Launch Terminal Multiplexer
+Exec=kitty -e zsh -c "source ~/.zshrc; exec tmux"
+Icon=tmux
+Terminal=false
+Categories=Utility
+Keywords=tmux;terminal;
+StartupWMClass=kitty
+StartupNotify=true

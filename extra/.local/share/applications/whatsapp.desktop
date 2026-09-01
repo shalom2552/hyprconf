@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Whatsapp
+GenericName=Chat & Voice
+Comment=Open Whatsapp in a standalone window
+Exec=chromium --app=https://web.whatsapp.com
+Icon=whatsapp
+Type=Application
+Categories=Network;
+StartupWMClass=chrome-web.whatsapp.com__-Default
+Terminal=false
