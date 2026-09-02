@@ -49,3 +49,7 @@ window#osd segment {
 window#osd segment:first-child {
     margin-left: 0;
 }
+
+window#osd progress {
+    margin: 0;
+}
