@@ -26,7 +26,7 @@ log_error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 on_error() {
     echo -e "\n${RED}[ERROR]${NC} Setup failed at line $LINENO.\n"
     echo -e "  Try run setup manually:\n"
-    echo -e "    cd ~/.config/hypr && ./install.sh\n"
+    echo -e "    cd ~/.config/hypr && ./install\n"
     exit 1
 }
 trap on_error ERR
@@ -100,7 +100,7 @@ elif [ -d "$HYPR_DIR/.git" ]; then
         log_info "Config updated."
     fi
     log_info "Re-launching updated script..."
-    exec env REEXECED=1 bash "$HYPR_DIR/install.sh"
+    exec env REEXECED=1 bash "$HYPR_DIR/install"
 else
     if [ -d "$HYPR_DIR" ]; then
         log_warn "~/.config/hypr exists. Backing up to ~/.config/hypr.bak..."
@@ -316,9 +316,9 @@ fi
 # ---------------------------------------------------
 log_info "Running dotfiles setup..."
 if [ -d "$HOME/dotfiles/.git" ]; then
-    SKIP_WELCOME=1 bash "$HOME/dotfiles/install.sh"
+    SKIP_WELCOME=1 bash "$HOME/dotfiles/install"
 else
-    bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install.sh)
+    bash <(curl -fSsL https://raw.githubusercontent.com/shalom2552/dotfiles/main/install)
 fi
 
 # ---------------------------------------------------

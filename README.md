@@ -1,33 +1,33 @@
-
 # Hyprconf
 
 Hyprland configuration for Arch Linux. Minimal, keyboard-driven, terminal-first.
 
-> Shell and tool configs live in a [separate repository](https://github.com/shalom2552/dotfiles).
+> Ships with [dotfiles](https://github.com/shalom2552/dotfiles) for shell and tool configs.
 
 ## Install
 
 ```bash
-bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
+bash <(curl -fSsL shalom2552.github.io/hyprconf/install)
 ```
 
-> Requires Hyprland ≥ 0.55 (Lua config). For older versions see `legacy` branch.
+> Needs Hyprland ≥ 0.55 (Lua config). Older versions, see `legacy` branch.
 
----
-
-| Screenshots |
+| |
 | :---: |
 | <img  alt="Desktop1" src="https://github.com/user-attachments/assets/227a7f76-486b-48dc-a8d1-e4ba06ff8a0f" /> |
 | <img alt="Desktop2" src="https://github.com/user-attachments/assets/a8d75f00-3bc3-468d-9055-b032c86b207b" /> |
 
-
 ## What's Included
 
 * **WM:** Hyprland
+* **Login:** SDDM
 * **Lock Screen:** Hyprlock
 * **Idle Daemon:** Hypridle
 * **Notifications:** SwayNC
 * **OSD:** SwayOSD
+* **Terminal:** Kitty
+* **File Manager:** Thunar
+* **Browser:** Zen Browser
 * **App Launcher:** fzf popup
 * **Command Runner:** kitty popup
 * **Window Switcher:** fzf popup
@@ -38,7 +38,6 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 * **Screen Recording:** wf-recorder
 
 ## Keybinds
-
 
 | Keybind | Action |
 | :--- | :--- |
@@ -67,3 +66,9 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install.sh)
 | `Super + Shift + R` | Screen Recording (region) |
 | `Super + Space` | Switch Keyboard Layout |
 
+## Setup
+
+The installer also sets up companion repositories.
+
+* **Wallpapers:** clones [wallpapers-bank](https://github.com/shalom2552/wallpapers-bank) into `~/Pictures/wallpapers`
+* **Dotfiles:** runs the [dotfiles](https://github.com/shalom2552/dotfiles) installer
