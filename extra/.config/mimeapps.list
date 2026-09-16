@@ -9,6 +9,7 @@ x-scheme-handler/chrome=zen.desktop
 x-scheme-handler/http=zen.desktop
 x-scheme-handler/https=zen.desktop
 application/x-shellscript=nvim.desktop;
+text/html=nvim.desktop;
 
 [Default Applications]
 application/json=nvim.desktop;
