@@ -58,14 +58,33 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- WORKSPACES
-for i = 1, 10 do
+for i = 1, 8 do
     local key = tostring(i % 10)  -- maps 10 → "0"
     hl.bind(mainMod .. " + " .. key,              hl.dsp.focus({ workspace = i }))
     hl.bind(mainMod .. " + SHIFT + " .. key,      hl.dsp.window.move({ workspace = i }))
 end
 
+-- MAGNIFY
+local baseSensitivity = hl.get_config("input.sensitivity")
+local function zoom(offset)
+    local current = offset ~= nil and hl.get_config("cursor.zoom_factor") + offset or 1
+    local factor = math.max(1, math.min(10, current))
+    hl.config({
+        cursor = { zoom_factor = factor },
+        input  = { sensitivity = (baseSensitivity + 1) / factor - 1 },
+    })
+end
+
+hl.config({ binds = { scroll_event_delay = 0 } }) -- disable bind scroll delay
+hl.bind(mainMod .. " + equal",      function () zoom(0.5)   end, { repeating = true })
+hl.bind(mainMod .. " + minus",      function () zoom(-0.5)  end, { repeating = true })
+hl.bind(mainMod .. " + mouse_down", function () zoom(0.1)   end )
+hl.bind(mainMod .. " + mouse_up",   function () zoom(-0.1)  end )
+hl.bind(mainMod .. " + mouse:274", zoom) -- reset zoom_factor
+hl.bind(mainMod .. " + 0 ", zoom)
+
 -- SCREENSHOTS
-hl.bind("Print",       hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screenshot.sh region"))
+hl.bind("Print",         hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screenshot.sh region"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screenshot.sh full"))
 
 -- VOLUME & BRIGHTNESS

@@ -25,6 +25,6 @@ hl.animation({ leaf = "fadeLayersOut",       enabled = true, speed = 1.4, bezier
 hl.animation({ leaf = "workspaces",          enabled = true, speed = 3,   bezier = "easeOutQuint", style = "slidevert" })
 hl.animation({ leaf = "workspacesIn",        enabled = true, speed = 3,   bezier = "easeOutQuint", style = "slidevert" })
 hl.animation({ leaf = "workspacesOut",       enabled = true, speed = 3,   bezier = "easeOutQuint", style = "slidevert" })
-hl.animation({ leaf = "zoomFactor",          enabled = true, speed = 7,   bezier = "quick" })
+hl.animation({ leaf = "zoomFactor",          enabled = true, speed = 2,   bezier = "quick" })
 hl.animation({ leaf = "specialWorkspaceIn",  enabled = true, speed = 5,   bezier = "easeOutQuint", style = "fade" })
 hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 5,   bezier = "easeOutQuint", style = "fade" })
