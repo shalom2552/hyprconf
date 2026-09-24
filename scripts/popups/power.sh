@@ -7,13 +7,13 @@ set -uo pipefail
 SCRIPT="$(realpath "$0")"
 WINDOW_CLASS="fzf-popup-power"
 
-# ==== COLORS (Tokyo Night) ====
+# ==== COLORS (Catppuccin Mocha) ====
 
-C_BLUE='\x1b[38;2;122;162;247m'
-C_YELLOW='\x1b[38;2;224;175;104m'
-C_PURPLE='\x1b[38;2;187;154;247m'
-C_ORANGE='\x1b[38;2;255;158;100m'
-C_RED='\x1b[38;2;247;118;142m'
+C_BLUE='\x1b[38;2;137;180;250m'
+C_YELLOW='\x1b[38;2;249;226;175m'
+C_PURPLE='\x1b[38;2;203;166;247m'
+C_ORANGE='\x1b[38;2;250;179;135m'
+C_RED='\x1b[38;2;243;139;168m'
 C_RESET='\x1b[0m'
 
 # ==== ACTIONS ====
@@ -73,9 +73,10 @@ if [[ "${1:-}" == "--inner" ]]; then
         --no-info \
         --border=rounded \
         --height=100% \
-        --color=fg:#c0caf5,bg:-1,hl:#bb9af7 \
-        --color=fg+:#c0caf5,bg+:-1,hl+:#7dcfff \
-        --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+        --gutter=' ' \
+        --color=fg:#cdd6f4,bg:-1,hl:#cba6f7 \
+        --color=fg+:#cdd6f4,bg+:-1,hl+:#89dceb \
+        --color=info:#89b4fa,prompt:#89dceb,pointer:#89dceb \
     ) || exit 0
 
     label=$(echo "$selected" | cut -f1 | sed 's/^[^ ]* *//')

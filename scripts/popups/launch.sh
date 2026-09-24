@@ -33,7 +33,7 @@ if [[ "${1:-}" == "--inner" ]]; then
                     name=$(grep -m1 "^Name=" "$file" | cut -d= -f2- | tr -d '\t')
                     comment=$(grep -m1 "^Comment=" "$file" | cut -d= -f2- | tr -d '\t' || true)
                     [[ -n "$name" ]] || continue
-                    printf '\x1b[38;2;158;206;106m%s\x1b[0m\t%s\t%s\n' "$name" "${comment:-}" "$file"
+                    printf '\x1b[38;2;166;227;161m%s\x1b[0m\t%s\t%s\n' "$name" "${comment:-}" "$file"
                 done < <(find "$app_dir" -name "*.desktop" -print0 2>/dev/null)
             done
         } | sort -u -t$'\t' -k1,1 > "$CACHE_FILE"
@@ -57,9 +57,10 @@ if [[ "${1:-}" == "--inner" ]]; then
         --no-info \
         --border=rounded \
         --height=100% \
-        --color=fg:#c0caf5,bg:-1,hl:#bb9af7 \
-        --color=fg+:#c0caf5,bg+:-1,hl+:#7dcfff \
-        --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+        --gutter=' ' \
+        --color=fg:#cdd6f4,bg:-1,hl:#cba6f7 \
+        --color=fg+:#cdd6f4,bg+:-1,hl+:#89dceb \
+        --color=info:#89b4fa,prompt:#89dceb,pointer:#89dceb \
         < "$CACHE_FILE"
     ) || exit 0
 

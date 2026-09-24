@@ -31,9 +31,10 @@ selected=$(
         --preview-label=" Preview " \
         --border-label=" Wallpaper Picker " \
         --no-info --border=rounded --height=100% \
-        --color=fg:#c0caf5,bg:-1,hl:#bb9af7 \
-        --color=fg+:#c0caf5,bg+:-1,hl+:#7dcfff \
-        --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+        --gutter=' ' \
+        --color=fg:#cdd6f4,bg:-1,hl:#cba6f7 \
+        --color=fg+:#cdd6f4,bg+:-1,hl+:#89dceb \
+        --color=info:#89b4fa,prompt:#89dceb,pointer:#89dceb \
         --bind "ctrl-r:execute-silent(find $WALL_DIR -maxdepth 1 \\( -iname *.jpg -o -iname *.jpeg -o -iname *.png \\) | shuf -n1 | xargs $HOME/.config/hypr/scripts/set-wallpaper.sh)+abort"
 ) || exit 0
 

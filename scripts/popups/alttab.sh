@@ -51,9 +51,10 @@ if [[ "${1:-}" == "--inner" ]]; then
             --no-info \
             --border=rounded \
             --height=100% \
-            --color=fg:#c0caf5,bg:-1,hl:#bb9af7 \
-            --color=fg+:#c0caf5,bg+:-1,hl+:#7dcfff \
-            --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff
+            --gutter=' ' \
+            --color=fg:#cdd6f4,bg:-1,hl:#cba6f7 \
+            --color=fg+:#cdd6f4,bg+:-1,hl+:#89dceb \
+            --color=info:#89b4fa,prompt:#89dceb,pointer:#89dceb
     ) || exit 0
 
     printf "%s" "$selected" | cut -f2 > "$RESULT_FILE"
