@@ -307,7 +307,7 @@ fi
 # ---------------------------------------------------
 if [ ! -f "$HYPR_DIR/modules/machine.lua" ]; then
     log_info "Creating modules/machine.lua..."
-    printf "-- ~/.config/hypr/modules/machine.lua\n-- Machine-specific config — not tracked in git.\n" \
+    printf -- "-- ~/.config/hypr/modules/machine.lua\n-- Machine-specific config — not tracked in git.\n" \
         > "$HYPR_DIR/modules/machine.lua"
 fi
 
