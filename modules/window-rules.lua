@@ -86,14 +86,6 @@ hl.window_rule({
 -- TRANSPARENCY
 --===========================
 
--- NOTE: moved to appearance
--- -- Default transparency for all windows
--- hl.window_rule({
---     name    = "default-transparency",
---     match   = { class = ".*" },
---     opacity = "0.8 0.8",
--- })
-
 -- Opaque exceptions — media players, image viewers
 hl.window_rule({
     name    = "opaque-media",
@@ -120,6 +112,13 @@ hl.window_rule({
 --===========================
 -- APP RULES
 --===========================
+
+-- Kitty controls its own opacity
+hl.window_rule({
+    name  = "kitty-opacity",
+    match = { class = "kitty" },
+    opacity = "1.0 override",
+})
 
 -- hyprland-run floating terminal
 hl.window_rule({
