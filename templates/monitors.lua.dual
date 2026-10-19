@@ -2,31 +2,35 @@
 --===========================
 -- MONITORS
 --===========================
-local left = "HDMI-A-1"
-local right = "DP-3"
+local scale = 1
 
-hl.monitor({
-    output = right,
-    mode = "1920x1080",
-    position = "1080x460",
-    scale = 1,
-})
+-- physical px -> logical px (by scale)
+local function pos(x, y)
+    return string.format("%dx%d", math.floor(x / scale + 0.5), math.floor(y / scale + 0.5))
+end
 
-hl.monitor({
-    output = left,
-    mode = "1920x1080",
-    position = "0x0",
-    scale = 1,
-    transform = 1,
-})
+-- List order sets workspaces: monitor k owns k, k+N, k+2N, ... (N = #monitors)
+local monitors = {
+    {
+        output = "HDMI-A-1",
+        mode = "1920x1080", position = pos(0, 0),
+        scale = scale,
+        transform = 1
+    },
+    {
+        output = "DP-3",
+        mode = "1920x1080",
+        position = pos(1080, 460),
+        scale = scale
+    },
+}
 
--- Odd workspaces → HDMI-A-1 (left), Even workspaces → DP-3 (right)
-hl.workspace_rule({ workspace = "1", monitor = left, default = true})
-hl.workspace_rule({ workspace = "3", monitor = left})
-hl.workspace_rule({ workspace = "5", monitor = left})
-hl.workspace_rule({ workspace = "7", monitor = left})
-hl.workspace_rule({ workspace = "2", monitor = right, default = true})
-hl.workspace_rule({ workspace = "4", monitor = right})
-hl.workspace_rule({ workspace = "6", monitor = right})
-hl.workspace_rule({ workspace = "8", monitor = right})
+-- Set up each monitor and pin its workspaces to it
+local per = math.ceil(WORKSPACES / #monitors)
+for k, m in ipairs(monitors) do
+    hl.monitor(m)
+    for i = 0, per - 1 do
+        hl.workspace_rule({ workspace = tostring(k + i * #monitors), monitor = m.output, default = (i == 0) })
+    end
+end
 

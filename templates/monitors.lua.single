@@ -2,10 +2,22 @@
 --===========================
 -- MONITORS (single / laptop)
 --===========================
-local primary = "eDP-1"
 
-hl.monitor({ output = primary, mode = "preferred", position = "auto", scale = 1 })
+-- List order sets workspaces: monitor k owns k, k+N, k+2N, ... (N = #monitors)
+local monitors = {
+    {
+        output = "eDP-1",
+        mode = "preferred",
+        position = "auto",
+        scale = 1
+    },
+}
 
-for i = 1, 8 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = primary, default = (i == 1) })
+-- Set up each monitor and pin its workspaces to it
+local per = math.ceil(WORKSPACES / #monitors)
+for k, m in ipairs(monitors) do
+    hl.monitor(m)
+    for i = 0, per - 1 do
+        hl.workspace_rule({ workspace = tostring(k + i * #monitors), monitor = m.output, default = (i == 0) })
+    end
 end

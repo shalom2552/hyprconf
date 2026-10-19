@@ -1,6 +1,6 @@
 #!/bin/bash
 # Moves the active window to the next/prev workspace on the current monitor,
-# following the same odd/even scheme as workspace_switch.sh.
+# following the same per-monitor scheme as workspace_switch.sh.
 # Usage: window_to_workspace.sh next | prev
 
 DIR="$1"
@@ -14,29 +14,22 @@ if [[ "$ACTIVE_ADDR" == "null" || -z "$ACTIVE_ADDR" ]]; then
     exit 0
 fi
 
-CURRENT_WS=$(hyprctl activeworkspace -j | jq '.id')
-CURRENT_MON=$(hyprctl monitors -j | jq -r \
-    '.[] | select(.activeWorkspace.id == '"$CURRENT_WS"') | .name')
+N=$(hyprctl monitors -j | jq length)
+PER=$(( (${HYPR_WORKSPACES:?} + N - 1) / N ))
+read -r CURRENT_WS CURRENT_MON < <(hyprctl activeworkspace -j | jq -r '[.id, .monitor] | @tsv')
+(( CURRENT_WS < 1 )) && exit 0
 
-if (( CURRENT_WS % 2 == 1 )); then
-    SET=(1 3 5 7)
-else
-    SET=(2 4 6 8)
-fi
-
-POS=0
-for i in "${!SET[@]}"; do
-    [[ "${SET[$i]}" -eq "$CURRENT_WS" ]] && POS=$i
-done
+BASE=$(( (CURRENT_WS - 1) % N + 1 ))
+POS=$(( (CURRENT_WS - 1) / N ))
 
 if [[ "$DIR" == "next" ]]; then
     TARGET_POS=$(( POS + 1 ))
-    (( TARGET_POS >= ${#SET[@]} )) && TARGET_POS=$(( ${#SET[@]} - 1 ))
+    (( TARGET_POS >= PER )) && TARGET_POS=$(( PER - 1 ))
 else
     TARGET_POS=$(( POS - 1 ))
     (( TARGET_POS < 0 )) && TARGET_POS=0
 fi
-TARGET=${SET[$TARGET_POS]}
+TARGET=$(( BASE + TARGET_POS * N ))
 
 hyprctl dispatch "hl.dsp.workspace.move({workspace='$TARGET', monitor='$CURRENT_MON'})" >/dev/null 2>&1
 hyprctl dispatch "hl.dsp.window.move({workspace=$TARGET})"

@@ -58,7 +58,7 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- WORKSPACES
-for i = 1, 8 do
+for i = 1, WORKSPACES do
     local key = tostring(i % 10)  -- maps 10 → "0"
     hl.bind(mainMod .. " + " .. key,              hl.dsp.focus({ workspace = i }))
     hl.bind(mainMod .. " + SHIFT + " .. key,      hl.dsp.window.move({ workspace = i }))

@@ -3,6 +3,10 @@
 -- ENVIRONMENT VARIABLES
 --===========================
 
+-- Total workspaces; used by keybinds, monitors and workspace scripts
+WORKSPACES = 8
+hl.env("HYPR_WORKSPACES", tostring(WORKSPACES))
+
 hl.env("XCURSOR_SIZE","24")
 hl.env("HYPRCURSOR_SIZE","24")
 
