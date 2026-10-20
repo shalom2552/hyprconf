@@ -27,9 +27,13 @@ else
     section=(-o "$output")
 fi
 
+# --- indicator ---
+hyprctl notify -1 7200000 "rgb(f38ba8)" "🔴" >/dev/null
+
 # --- record ---
 # timeout: 2 hours, signal: INT (kill) after 2 hours
-timeout --signal=INT 2h wf-recorder -f "$dir/$filename" "${section[@]}" --audio="$(pactl get-default-sink).monitor"
+timeout --signal=INT --kill-after=30s 2h wf-recorder -f "$dir/$filename" "${section[@]}" --audio="$(pactl get-default-sink).monitor"
+hyprctl eval "for _, n in ipairs(hl.notification.get()) do if n:get_text() == '🔴' then n:dismiss() end end" >/dev/null
 
 # --- notify ---
 thumb=$(mktemp --suffix=.png)

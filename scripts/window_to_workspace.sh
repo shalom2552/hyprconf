@@ -34,5 +34,4 @@ TARGET=$(( BASE + TARGET_POS * N ))
 hyprctl dispatch "hl.dsp.workspace.move({workspace='$TARGET', monitor='$CURRENT_MON'})" >/dev/null 2>&1
 hyprctl dispatch "hl.dsp.window.move({workspace=$TARGET})"
 
-hyprctl dismissnotify -1 >/dev/null 2>&1
-hyprctl notify -1 1500 "rgb(ffffff)" "$(( TARGET_POS + 1 ))"
+hyprctl eval "if ws_notif then ws_notif:dismiss() end; ws_notif = hl.notification.create({ text = '$(( TARGET_POS + 1 ))', duration = 1500, color = 'rgb(ffffff)' })" >/dev/null
