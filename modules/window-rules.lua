@@ -89,7 +89,7 @@ hl.window_rule({
 -- Opaque exceptions — media players, image viewers
 hl.window_rule({
     name    = "opaque-media",
-    match   = { class = "^(mpv|vlc|loupe|eog)$" },
+    match   = { class = "^(mpv|vlc|org.gnome.Loupe|eog)$" },
     opacity = "1.0 override",
 })
 

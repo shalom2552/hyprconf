@@ -20,6 +20,7 @@ hl.env("GTK_THEME","Adwaita:dark")
 -- Toolkit Settings
 hl.env("QT_QPA_PLATFORM","wayland;xcb")
 hl.env("SDL_VIDEODRIVER","wayland")
+hl.env("GDK_WAYLAND_DISABLE","ext_background_effect_manager_v1")
 hl.env("CLUTTER_BACKEND","wayland")
 
 -- XDG Base Directories
