@@ -11,10 +11,9 @@ existing_addr=$(hyprctl clients -j 2>/dev/null \
     | jq -r --arg c "$WINDOW_CLASS" '.[] | select(.class == $c) | .address' \
     | head -1)
 
-# If open, focus and close
+# If open, show/hide
 if [[ -n "$existing_addr" ]]; then
-    hyprctl dispatch "hl.dsp.focus({window='address:$existing_addr'})" >/dev/null
-    hyprctl dispatch "hl.dsp.window.close()" >/dev/null
+    hyprctl dispatch "hl.dsp.workspace.toggle_special('search')" >/dev/null
     exit 0
 fi
 

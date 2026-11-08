@@ -148,10 +148,9 @@ hl.window_rule({
 hl.window_rule({
     name  = "google-quick-search",
     match        = { class = "chrome-www.google.com__-Default" },
-    float        = true,
-    center       = true,
     opacity      = "1.0 1.0",
     dim_around   = true,
-    pin          = true,
-    size     = "700 800",
+    workspace    = "special:search",
 })
+hl.workspace_rule({ workspace = "special:search", gaps_out = 100 })
+
