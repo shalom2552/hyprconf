@@ -120,6 +120,13 @@ hl.window_rule({
     opacity = "1.0 override",
 })
 
+-- Kitty quick access slide
+hl.layer_rule({
+    name      = "kitty-quick-access-slide",
+    match     = { namespace = "^kitty-quick-access$" },
+    animation = "slide top",
+})
+
 -- hyprland-run floating terminal
 hl.window_rule({
     name  = "move-hyprland-run",
