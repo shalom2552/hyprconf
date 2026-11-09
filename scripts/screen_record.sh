@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # ~/.config/hypr/scripts/screen_record.sh
-# Usage: screen_record.sh [-g]  (default: focused monitor; -g for region select)
+# Usage: screen_record.sh  (pick screen, window or region in the share picker)
 
 ##############################
 # SCREEN RECORD
 ##############################
 
 # Toggle: kill existing recording and let that instance finish + notify
-if pgrep -x wf-recorder > /dev/null; then
-    pkill -INT wf-recorder
+if pgrep -f '^gpu-screen-recorder' > /dev/null; then
+    pkill -INT -f '^gpu-screen-recorder'
     exit 0
 fi
 
@@ -18,22 +18,16 @@ dir="$HOME/Videos/ScreenRecordings"
 mkdir -p "$dir"
 filename="screen_record_$(date +%Y-%m-%d_%H-%M-%S).mp4"
 
-# --- region ---
-if [[ "$1" == "-g" ]]; then
-    geometry=$(slurp) || exit 1
-    section=(-g "$geometry")
-else
-    output=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name') || exit 1
-    section=(-o "$output")
-fi
-
 # --- indicator ---
 hyprctl notify -1 7200000 "rgb(f38ba8)" "🔴" >/dev/null
 
 # --- record ---
 # timeout: 2 hours, signal: INT (kill) after 2 hours
-timeout --signal=INT --kill-after=30s 2h wf-recorder -f "$dir/$filename" "${section[@]}" --audio="$(pactl get-default-sink).monitor"
+timeout --signal=INT --kill-after=30s 2h gpu-screen-recorder -w portal -fallback-cpu-encoding yes -a default_output -o "$dir/$filename"
 hyprctl eval "for _, n in ipairs(hl.notification.get()) do if n:get_text() == '🔴' then n:dismiss() end end" >/dev/null
+
+# canceled in picker
+[ -f "$dir/$filename" ] || exit 0
 
 # --- notify ---
 thumb=$(mktemp --suffix=.png)

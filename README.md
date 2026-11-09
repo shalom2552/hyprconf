@@ -35,7 +35,7 @@ bash <(curl -fSsL shalom2552.github.io/hyprconf/install)
 * **Power Menu:** fzf popup
 * **Wallpaper:** awww
 * **Screenshots:** grim + slurp
-* **Screen Recording:** wf-recorder
+* **Screen Recording:** gpu-screen-recorder
 
 ## Keybinds
 

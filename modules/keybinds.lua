@@ -22,7 +22,6 @@ hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/popups/wallpaper.sh"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/set-wallpaper.sh"))
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screen_record.sh"))
-hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/screen_record.sh -g"))
 
 -- WINDOW MANAGEMENT
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
