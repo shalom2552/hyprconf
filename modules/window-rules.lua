@@ -127,12 +127,12 @@ hl.layer_rule({
     animation = "slide top",
 })
 
--- hyprland-run floating terminal
-hl.window_rule({
-    name  = "move-hyprland-run",
-    match = { class = "hyprland-run" },
-    move  = "20 monitor_h-120",
-    float = true,
+-- Desktop widgets
+hl.layer_rule({
+    name         = "desktop-widget",
+    match        = { namespace = ".*widget.*" },
+    blur         = true,
+    ignore_alpha = 0,
 })
 
 -- Zen Browser Picture-in-Picture

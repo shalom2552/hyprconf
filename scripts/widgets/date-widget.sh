@@ -6,7 +6,7 @@ TOP=30
 LEFT=30
 CMD=(watch -tcn1 'printf "      \033[1;35m%s\033[0m\n" "$(date +%T)"; cal --color=always')
 
-FILL='#1e1e2e'
+FILL='#1e1e2e66'
 BORDER='#b4befe'
 RADIUS=20
 STROKE=3
@@ -23,6 +23,7 @@ magick -size "${w}x$h" xc:none -fill "$FILL" -stroke "$BORDER" -strokewidth "$ST
   -draw "roundrectangle 2,2 $((w - 3)),$((h - 3)) $RADIUS,$RADIUS" "$bg"
 
 exec kitten panel \
+  --app-id=date-desktop-widget \
   --edge=none \
   --layer=bottom \
   --columns="$COLS" \
